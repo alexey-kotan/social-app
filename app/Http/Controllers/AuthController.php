@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Auth;
+// use App\Models\User;
+use Illuminate\Support\Facades\Auth; // Подключение фасада Auth для исполльзования attempt
 
 class AuthController extends Controller
 {
@@ -13,19 +14,14 @@ class AuthController extends Controller
             'password' => 'required|string'
         ]);
 
-        $email = $request->input('email'); // после проверки считываем данные из поля и добавлем в переменную
-        $password = $request->input('password');
+        $credentials = $request->only('email', 'password'); // получаем только необходимые поля из запроса $request и заносим в переменную 
 
-        $userEmail = Auth::where('email', $email)->exists(); // стравниваем значение из таблицы users 
-        // (через модель Auth, который копирует User) и занчение из нашей переменной
-        // exists() - проверяет, есть ли такое значение в аблице и возвращает true или false
-        $userPassword = Auth::where('password', $password)->exists();
- 
-        if ($userEmail && $userPassword) {
-            return redirect()->route('userpage');
+        if (Auth::attempt($credentials)) { // attempt сверяет данные из переменной credentialsс данными в БД
+            // пароль сравнивает только в зашифрованном 'Bcrypt' виде
+            redirect()->route('userpage'); // перенаправляет на страницу пользователя
         } else {
             return back()->withInput()->withErrors('Такого пользователя не существует! Проверьте данные или зарегистрируйтесь.');
-        // back() - возвращает польщователя на ту же страницу, withInput() - созраняет данные введенные пользователем в поле (через сессии),
+        // back() - возвращает пользователя на ту же страницу, withInput() - сохраняет данные введенные пользователем в поле (через сессии),
         // withErrors() - сохраняет ошибки из валидации в сессии для дальнейшего вывода на странце
         }
     }

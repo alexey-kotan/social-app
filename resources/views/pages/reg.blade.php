@@ -8,15 +8,15 @@
 
 <p>Пожалуйста введите свои данные для регистрации</p>
 
-{{-- <ul>
+<ul>
     @foreach ($errors->all() as $massage)
       <li>
-        <div class="text-bg-warning p-3">
+        <div class="p-3 rounded-2 bg-danger">
           {{ $massage }}
         </div>
       </li>
     @endforeach
-</ul> --}}
+</ul>
 
 <form action="{{ route('reg') }}" method="post">
     @csrf

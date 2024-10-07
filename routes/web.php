@@ -19,11 +19,11 @@ return view('pages/about'); })
 
 // Authentication
 Route::get('/reg', function () { 
-return view('pages/reg'); })
+return view('pages/reg'); }) -> middleware('guest')
     -> name('reg');
 
 Route::get('/auth', function () { 
-return view('pages/auth'); })
+return view('pages/auth'); }) -> middleware('guest')
     -> name('auth');
 
 Route::post('/auth', [AuthController::class, 'auth'])-> name('user-auth');
@@ -34,6 +34,6 @@ Route::post('/reg', [RegController::class, 'reg'])-> name('user-reg');
 
 // User
 Route::get('/userpage', function () { 
-return view('user/userpage'); })
+return view('user/userpage'); }) -> middleware('auth')
     -> name('userpage');
     

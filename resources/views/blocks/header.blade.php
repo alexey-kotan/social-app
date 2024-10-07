@@ -42,15 +42,19 @@
       </ul>
 
       <div class="btn-group text-end">
-        @if(!request()->routeIs('auth'))
+        @if(!request()->routeIs('auth') && !Auth::check())
           <form action="{{ route('auth') }}">
               <button type="submit" class="btn btn-light rounded-pill px-3">Войти</button>
           </form>
-        @endif
-        
-        @if(!request()->routeIs('reg'))
+        @elseif(!request()->routeIs('reg') && !Auth::check())
           <form action="{{ route('reg') }}">
-              <button type="submit" class="btn btn-light rounded-pill px-3">Регистрация</button>
+            <button type="submit" class="btn btn-light rounded-pill px-3">Регистрация</button>
+          </form>
+        @else
+          <form action="{{ route('userpage') }}">
+            <button type="submit" class="badge d-flex align-items-center p-2 pe-2 text-dark-emphasis bg-light-subtle border border-dark-subtle rounded-pill">
+              <img class="rounded-circle me-1" width="24" height="24" src="https://github.com/mdo.png" alt="">&nbsp;&nbsp;Username
+            </button>
           </form>
         @endif
       </div>
