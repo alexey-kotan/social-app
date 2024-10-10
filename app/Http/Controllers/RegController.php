@@ -10,9 +10,9 @@ class RegController extends Controller
 {
     public function reg(Request $request) {
         $request->validate([
-            'name'=>'required|string|min:2|max:20',
+            'name'=>'required|string|min:2|max:20|unique:users,name',
             'email'=>'required|email|unique:users,email',
-            'password'=>'required|string|min:6|max:40'
+            'password'=>'required|string|min:6|max:40|confirmed'
         ]);
 
         $user = User::create([ // добавляем данные в БД через модель User

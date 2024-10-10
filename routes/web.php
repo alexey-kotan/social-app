@@ -6,7 +6,7 @@ use App\Http\Controllers\RegController;
 
 // Pages
 Route::get('/', function () { 
-return view('pages/home'); })
+return view('pages/home'); }) -> middleware('guest')
     -> name('home');
 
 Route::get('/faqs', function () { 
@@ -22,6 +22,8 @@ Route::get('/reg', function () {
 return view('pages/reg'); }) -> middleware('guest')
     -> name('reg');
 
+Route::post('/reg', [RegController::class, 'reg'])-> name('user-reg');
+
 Route::get('/auth', function () { 
 return view('pages/auth'); }) -> middleware('guest')
     -> name('auth');
@@ -30,7 +32,8 @@ Route::post('/auth', [AuthController::class, 'auth'])-> name('user-auth');
 // Всё что передается через post на странице /auth передается в AuthController в метод auth 
 //наименование name('user-auth') для того, чтобы использовать его для отправки в форме
 
-Route::post('/reg', [RegController::class, 'reg'])-> name('user-reg');
+Route::post('/userpage', [AuthController::class, 'logout']) -> middleware('auth') -> name('logout');
+
 
 // User
 Route::get('/userpage', function () { 
