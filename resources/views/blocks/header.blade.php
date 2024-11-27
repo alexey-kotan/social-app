@@ -13,8 +13,8 @@
       </ul>
 
       <div class="btn-group text-end">
-        @if(!request()->routeIs('auth') && !Auth::check())
-          <form action="{{ route('auth') }}">
+        @if(!request()->routeIs('home') && !Auth::check())
+          <form action="{{ route('home') }}">
               <button type="submit" class="btn btn-light rounded-pill px-3">Войти</button>
           </form>
         @elseif(!request()->routeIs('reg') && !Auth::check())

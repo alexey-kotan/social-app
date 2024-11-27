@@ -7,7 +7,7 @@
 <h1>Авторизация</h1>
 
 <p>Пожалуйста авторизуйтесь</p>
-<form action="{{ route('auth') }}" method="post" autocomplete="off">
+<form action="{{ route('home') }}" method="post" autocomplete="off">
   @csrf
 
   {{-- вывод сообщения об успешной смене пароля --}}

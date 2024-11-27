@@ -7,9 +7,9 @@ use App\Http\Controllers\ForgotPassController;
 use App\Http\Controllers\ResetPassController;
 
 // домащняя
-Route::get('/', function () { 
-return view('pages/home'); }) -> middleware('guest')
-    -> name('home');
+// Route::get('/q', function () { 
+// return view('pages/home'); }) -> middleware('guest')
+//     -> name('home');
 
 // faq
 Route::get('/faqs', function () { 
@@ -29,11 +29,11 @@ return view('pages/reg'); }) -> middleware('guest')
 Route::post('/reg', [RegController::class, 'reg'])-> name('user-reg');
 
 // страница авторизации
-Route::get('/auth', function () { 
+Route::get('/', function () { 
 return view('pages/auth'); }) -> middleware('guest')
-    -> name('auth');
+    -> name('home');
 // контроллер авторизации
-Route::post('/auth', [AuthController::class, 'auth'])-> name('user-auth');
+Route::post('/', [AuthController::class, 'auth'])-> name('user-auth');
 // Всё что передается через post на странице /auth передается в AuthController в метод auth 
 //наименование name('user-auth') для того, чтобы использовать его для отправки в форме
 

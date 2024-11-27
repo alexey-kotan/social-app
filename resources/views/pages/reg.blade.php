@@ -45,7 +45,7 @@
     <button class="btn btn-success w-100 py-2" type="submit">Зарегистрироваться</button>
   </form></br>
   <p>Уже есть аккаунта? Авторизуйтесь.</p>
-  <form action="{{ route('auth') }}">
+  <form action="{{ route('home') }}">
     <button class="btn btn-primary w-100 py-2" type="submit">Авторизация</button>
   </form>
 @endsection
