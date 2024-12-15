@@ -5,6 +5,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RegController;
 use App\Http\Controllers\ForgotPassController;
 use App\Http\Controllers\ResetPassController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\PostController;
 
 // домащняя
 // Route::get('/q', function () { 
@@ -57,3 +59,9 @@ Route::get('/userpage', function () {
 return view('user/userpage'); }) -> middleware('auth')
     -> name('userpage');
     
+// страница нового поста
+Route::get('/newpost', function () { 
+    return view('user/newpost'); }) -> middleware('auth')
+        -> name('newpost');
+// контроллер новый пост
+Route::post('/newpost', [PostController::class, 'post_create'])-> name('post_create');
