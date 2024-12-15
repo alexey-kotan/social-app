@@ -13,35 +13,38 @@
       </button>
     </form>
   </div><br>
-  <h5>Мои посты</h5>
+
+  <h1>Мои посты</h1><br>
 
   <form action="{{ route('newpost') }}">
     <button class="btn btn-primary w-50 py-2" type="submit">Новый пост</button>
+  </form>
+
+  <form action="{{ route('newpost') }}">
+    <button class="btn btn-primary w-50 py-2" type="submit">Мои посты</button>
   </form>
 
   @if(session('success_post'))
   <p>{{ session('success_post') }}</p>
   @endif <br>
 
-  <div class="col-md-6">
-    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-      <div class="col p-4 d-flex flex-column position-static">
-        <strong class="d-inline-block mb-2 text-success-emphasis">Design</strong>
-        <h3 class="mb-0">Post title</h3>
-        <div class="mb-1 text-body-secondary">Nov 11</div>
-        <p class="mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
-          Continue reading
-          <svg class="bi"><use xlink:href="#chevron-right"></use></svg>
-        </a>
+  @if($posts->isEmpty())
+    <p>У этого пользователя нет постов.</p>
+  @else
+    @foreach($posts as $post)
+      <div class="col-md-12">
+        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-350 position-relativeц">
+          <div class="col-auto d-none d-lg-block">
+            <a href="{{ asset('storage/' . $post->post_image) }}" target="_blank">
+              <img src="{{ asset('storage/' . $post->post_image) }}" width="200" height="200" alt="">
+            </a>
+          </div>
+          <div class="col p-6 d-flex flex-column">
+            <div class="mb-1 text-body-secondary">Опубликовал {{ $post->user_name }} в {{ $post->created_at }}</div>
+            <p class="mb-auto">{{ $post->post_text }}</p>
+          </div>
+        </div>
       </div>
-      <div class="col-auto d-none d-lg-block">
-        <img src="" alt="">
-        <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-      </div>
-    </div>
-  </div>
-  <p>Пост 2</p>
-  <p>Пост 3</p>
-
+    @endforeach
+  @endif
 @endsection

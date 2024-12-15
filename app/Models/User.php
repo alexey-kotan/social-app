@@ -55,4 +55,8 @@ class User extends Authenticatable
             ->saveSlugsTo('slug')
             ->usingSeparator('-');
     }
+
+    public function posts() {
+        return $this->hasMany(Post::class, 'user_name', 'name'); // Здесь 'user_name'-это внешний ключ
+    }
 }

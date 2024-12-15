@@ -31,4 +31,16 @@ class PostController extends Controller
         
         return redirect('userpage')->with('success_post', 'Ваш пост успешно опубликован.');
     }
+
+    public function showUserPosts() {
+        $user = Auth::user(); // Получаем пользователя
+
+        if (!$user) {
+            abort(404); // Если пользователь не найден, возвращаем 404
+        }
+    
+        // Получаем три последних поста пользователя
+        $posts = $user->posts()->orderBy('created_at', 'desc')->take(3)->get();
+        return view('user.userpage', compact('user', 'posts')); // Передаем данные в представление userpage
+    }
 }

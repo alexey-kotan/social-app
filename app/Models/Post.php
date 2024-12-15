@@ -14,4 +14,8 @@ class Post extends Model
         'post_text',
         'post_image',
     ];
+
+    public function user() {
+        return $this->belongsTo(User::class, 'user_name', 'name'); // Здесь 'user_name'-это внешний ключ
+    }
 }

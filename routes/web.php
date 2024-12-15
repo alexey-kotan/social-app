@@ -55,9 +55,11 @@ Route::post('/reset_pass', [ResetPassController::class, 'update'])-> name('passw
 
 
 // страница пользователя
-Route::get('/userpage', function () { 
-return view('user/userpage'); }) -> middleware('auth')
-    -> name('userpage');
+// Route::get('/userpage', function () { 
+// return view('user/userpage'); }) -> middleware('auth')
+//     -> name('userpage');
+
+Route::get('/userpage', [PostController::class, 'showUserPosts']) -> middleware('auth') -> name('userpage');
     
 // страница нового поста
 Route::get('/newpost', function () { 

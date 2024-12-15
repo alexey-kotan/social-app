@@ -16,27 +16,29 @@
     @include('blocks.header')
 @endguest
 
-<div class="flex flex-row">
-    <div class="basis-3/10">
-        @auth
-        {{-- сайдбар доступен только авторизированным пользователям --}}
-            @include('blocks.sidebar')
-        @endauth
-    </div>
 
-    <div class="basis-4/10">
-        <div class="container">
+
+<div class="flex flex-row place-content-center">
+    @auth
+    {{-- сайдбар доступен только авторизированным пользователям --}}
+        <div class="basis-3/10">
+            @include('blocks.sidebar')
+        </div>
+    @endauth
+
+    <div class="basis-4/10 bg-red-200 ">
+        <div class="container ">
             {{-- сюда вставляется основной контент страницы, в которой используется данный шаблон html --}}
             @yield('content')
         </div>
     </div>
-
-    <div class="basis-3/10">
-        @auth
-        {{-- друзья доступны только авторизированным пользователям --}}
-        <h4>Мои друзья</h4>
-        @endauth
-    </div>
+    
+    @auth
+        <div class="basis-3/10">
+            {{-- друзья доступны только авторизированным пользователям --}}
+            @include('blocks.friendbar')
+        </div>
+    @endauth
 </div>
 
 </body>
