@@ -13,12 +13,12 @@ use App\Http\Controllers\PostController;
 // return view('pages/home'); }) -> middleware('guest')
 //     -> name('home');
 
-// faq
+// страница faq
 Route::get('/faqs', function () { 
 return view('pages/faqs'); })
     -> name('faqs');
 
-// о нас
+// страница о нас
 Route::get('/about', function () { 
 return view('pages/about'); })
     -> name('about');
@@ -55,15 +55,16 @@ Route::post('/reset_pass', [ResetPassController::class, 'update'])-> name('passw
 
 
 // страница пользователя
-// Route::get('/userpage', function () { 
-// return view('user/userpage'); }) -> middleware('auth')
-//     -> name('userpage');
+Route::get('/userpage', [PostController::class, 'showLastUserPosts']) -> middleware('auth') -> name('userpage');
 
-Route::get('/userpage', [PostController::class, 'showUserPosts']) -> middleware('auth') -> name('userpage');
-    
+//ПОСТЫ
 // страница нового поста
 Route::get('/newpost', function () { 
     return view('user/newpost'); }) -> middleware('auth')
         -> name('newpost');
 // контроллер новый пост
 Route::post('/newpost', [PostController::class, 'post_create'])-> name('post_create');
+// страница с постами юзера
+Route::get('/my_posts', [PostController::class, 'showAllUserPosts']) -> middleware('auth') -> name('my_posts');
+// страница с поставми всех юзеров
+Route::get('/all_posts', [PostController::class, 'showAllPosts']) -> middleware('auth') -> name('all_posts');

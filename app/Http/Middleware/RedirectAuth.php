@@ -9,12 +9,12 @@ use Illuminate\Support\Facades\Auth;
 
 class RedirectAuth
 {
-    public function handle($request, Closure $next)
-    {
-        if (Auth::check()) {
-            return redirect()->route('userpage', ['id' => Auth::user()->id]);
-        }
+    // public function handle($request, Closure $next)
+    // {
+    //     if (Auth::check()) {
+    //         return redirect()->route('userpage', ['id' => Auth::user()->id]);
+    //     }
 
-        return $next($request);
-    }
+    //     return $next($request);
+    // }
 }

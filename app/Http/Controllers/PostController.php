@@ -32,15 +32,32 @@ class PostController extends Controller
         return redirect('userpage')->with('success_post', 'Ваш пост успешно опубликован.');
     }
 
-    public function showUserPosts() {
+    public function showLastUserPosts() {
         $user = Auth::user(); // Получаем пользователя
 
         if (!$user) {
             abort(404); // Если пользователь не найден, возвращаем 404
         }
-    
         // Получаем три последних поста пользователя
         $posts = $user->posts()->orderBy('created_at', 'desc')->take(3)->get();
         return view('user.userpage', compact('user', 'posts')); // Передаем данные в представление userpage
+    }
+
+    public function showAllUserPosts() {
+        $user = Auth::user(); // Получаем пользователя
+
+        if (!$user) {
+            abort(404); // Если пользователь не найден, возвращаем 404
+        }
+        // Получаем три последних поста пользователя
+        $posts = $user->posts()->orderBy('created_at', 'desc')->get();
+        return view('user.my_posts', compact('user', 'posts')); // Передаем данные в представление my_posts
+    }
+
+    public function showAllPosts() {
+        $user = Post::select('user_name')->distinct()->pluck('user_name');
+        // Получаем три последних поста пользователя
+        $posts = Post::orderBy('created_at', 'desc')->get();
+        return view('user.all_posts', compact('user', 'posts')); // Передаем данные в представление my_posts
     }
 }

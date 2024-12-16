@@ -8,13 +8,13 @@
       <a href="#" class="nav-link link-body-emphasis" aria-current="page"> Мои друзья </a>
     </li>
     <li>
-      <a href="#" class="nav-link link-body-emphasis"> Мои посты </a>
+      <a href="{{ route('my_posts') }}" class="nav-link link-body-emphasis"> Мои посты </a>
     </li>
     <li>
       <a href="#" class="nav-link link-body-emphasis"> Посты друзей </a>
     </li>
     <li>
-      <a href="#" class="nav-link link-body-emphasis"> Все посты </a>
+      <a href="{{ route('all_posts') }}" class="nav-link link-body-emphasis"> Все посты </a>
     </li>
     <li>
       <a href="#" class="nav-link link-body-emphasis"> Поддержка </a>
