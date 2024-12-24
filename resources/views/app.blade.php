@@ -41,5 +41,7 @@
     @endauth
 </div>
 
+@include('blocks.footer')
+
 </body>
 </html>

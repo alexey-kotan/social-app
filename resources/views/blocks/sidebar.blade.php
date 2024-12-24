@@ -5,7 +5,7 @@
       <a href="{{ route('home') }}" class="nav-link active" aria-current="page"> Мой профиль </a>
     </li>
     <li class="nav-item">
-      <a href="#" class="nav-link link-body-emphasis" aria-current="page"> Мои друзья </a>
+      <a href="{{ route('friends') }}" class="nav-link link-body-emphasis" aria-current="page"> Мои друзья </a>
     </li>
     <li>
       <a href="{{ route('my_posts') }}" class="nav-link link-body-emphasis"> Мои посты </a>

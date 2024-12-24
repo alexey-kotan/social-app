@@ -59,4 +59,8 @@ class User extends Authenticatable
     public function posts() {
         return $this->hasMany(Post::class, 'user_name', 'name'); // Здесь 'user_name'-это внешний ключ
     }
+
+    public function friends() {
+            return $this->belongsToMany(User::class, 'friends', 'user_id', 'friend_id');
+    }
 }

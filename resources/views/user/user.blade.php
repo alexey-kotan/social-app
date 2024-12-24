@@ -1,31 +1,27 @@
 {{-- тут хранится шаблон соновного html файла --}}
 @extends('app')
 {{-- секция для указания названия страницы --}}
-@section('title') {{ Auth::user()->name }} @endsection
+@section('title') {{ $user->name }} @endsection
 {{-- секция, куда в основной шаблон html вставляется основной контент данной страницы (секцию нужно закрывать!) --}}
 
 @section('content')
-<div class="dropdown">
-    <form action="{{ route('userpage') }}">
+  <div class="dropdown">
+    <form action="{{ route('user_profile', ['id' => $user->id]) }}">
       <button type="submit" class="badge d-flex align-items-center p-2 pe-2 text-dark-emphasis bg-light-subtle border border-dark-subtle rounded-pill">
-        <img class="rounded-circle me-1" width="100" height="100" src="defolt.png" alt="">&nbsp;&nbsp; <h1>{{ Auth::user()->name }}</h1>
+        <img class="rounded-circle me-1" width="100" height="100" src="defolt.png" alt="">&nbsp;&nbsp; <h1>{{ $user->name }}</h1>
         {{-- Auth::user() - используется, чтобы считать авторизованного пользователя --}}
       </button>
     </form>
   </div><br>
 
-  <h1>Мои посты</h1><br>
-
-  <form action="{{ route('newpost') }}">
-    <button class="btn btn-primary w-50 py-2" type="submit">Новый пост</button>
-  </form>
-
-  @if(session('success_post'))
+  <p>Посты пользователя <i>{{ $user->name }}</i></p><br>
+  
+  {{-- @if(session('success_post'))
   <p>{{ session('success_post') }}</p>
-  @endif <br>
+  @endif <br> --}}
 
   @if($posts->isEmpty())
-    <p>У вас нет постов. Создайте <a href="{{ route('newpost') }}">новый пост</a>.</p> 
+    <p>У пользователя <i>{{ $user->name }}</i> нет постов.</p> 
   @else
     @foreach($posts as $post)
       <div class="col-md-12">
@@ -44,11 +40,9 @@
         </div>
       </div>
     @endforeach
+    <form action="{{ route('user_posts', ['id' => $user->id]) }}">
+      <button class="btn btn-primary w-50 py-2 float-right" type="submit">Все посты {{ $user->name }}</button>
+    </form></br>
   @endif
-
-  <form action="{{ route('my_posts') }}">
-    <button class="btn btn-primary w-50 py-2 float-right" type="submit">Все мои посты</button>
-  </form>
-</br>
-
+  
 @endsection

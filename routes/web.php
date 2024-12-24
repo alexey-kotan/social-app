@@ -5,13 +5,10 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RegController;
 use App\Http\Controllers\ForgotPassController;
 use App\Http\Controllers\ResetPassController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\FriendController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 
-// домащняя
-// Route::get('/q', function () { 
-// return view('pages/home'); }) -> middleware('guest')
-//     -> name('home');
 
 // страница faq
 Route::get('/faqs', function () { 
@@ -55,7 +52,17 @@ Route::post('/reset_pass', [ResetPassController::class, 'update'])-> name('passw
 
 
 // страница пользователя
-Route::get('/userpage', [PostController::class, 'showLastUserPosts']) -> middleware('auth') -> name('userpage');
+Route::get('/userpage', [PostController::class, 'showLastPosts']) -> middleware('auth') -> name('userpage');
+
+//ДРУЗЬЯ
+// страница мои друзья
+Route::get('/friends', function () { 
+    return view('user/friends'); }) -> middleware('auth')
+        -> name('friends');
+// отправка запроса на дружьбу
+Route::post('/friends/{friendId}', [FriendController::class, 'sendFriendRequest'])->middleware('auth');
+// страница другого пользователя + отображение 3х последних постов
+Route::get('/id_{id}', [PostController::class, 'showLastUserPost'])->name('user_profile');
 
 //ПОСТЫ
 // страница нового поста
@@ -65,6 +72,8 @@ Route::get('/newpost', function () {
 // контроллер новый пост
 Route::post('/newpost', [PostController::class, 'post_create'])-> name('post_create');
 // страница с постами юзера
-Route::get('/my_posts', [PostController::class, 'showAllUserPosts']) -> middleware('auth') -> name('my_posts');
+Route::get('/my_posts', [PostController::class, 'showPosts']) -> middleware('auth') -> name('my_posts');
 // страница с поставми всех юзеров
 Route::get('/all_posts', [PostController::class, 'showAllPosts']) -> middleware('auth') -> name('all_posts');
+// 
+Route::get('/id_{id}/posts', [PostController::class, 'showUserPosts'])->name('user_posts');

@@ -1,32 +1,13 @@
 {{-- тут хранится шаблон соновного html файла --}}
 @extends('app')
 {{-- секция для указания названия страницы --}}
-@section('title') {{ Auth::user()->name }} @endsection
+@section('title') Посты {{ $user->name }} @endsection
 {{-- секция, куда в основной шаблон html вставляется основной контент данной страницы (секцию нужно закрывать!) --}}
 
 @section('content')
-<div class="dropdown">
-    <form action="{{ route('userpage') }}">
-      <button type="submit" class="badge d-flex align-items-center p-2 pe-2 text-dark-emphasis bg-light-subtle border border-dark-subtle rounded-pill">
-        <img class="rounded-circle me-1" width="100" height="100" src="defolt.png" alt="">&nbsp;&nbsp; <h1>{{ Auth::user()->name }}</h1>
-        {{-- Auth::user() - используется, чтобы считать авторизованного пользователя --}}
-      </button>
-    </form>
-  </div><br>
+    <br>
+    <h1>Посты <i>{{ $user->name }}</i></h1><br>
 
-  <h1>Мои посты</h1><br>
-
-  <form action="{{ route('newpost') }}">
-    <button class="btn btn-primary w-50 py-2" type="submit">Новый пост</button>
-  </form>
-
-  @if(session('success_post'))
-  <p>{{ session('success_post') }}</p>
-  @endif <br>
-
-  @if($posts->isEmpty())
-    <p>У вас нет постов. Создайте <a href="{{ route('newpost') }}">новый пост</a>.</p> 
-  @else
     @foreach($posts as $post)
       <div class="col-md-12">
         <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-350 position-relativeц">
@@ -37,6 +18,7 @@
                 </a>
             @endif
           </div>
+          
           <div class="col p-6 d-flex flex-column">
             <div class="mb-1 text-body-secondary">Опубликовал <b>{{ $post->user_name }}</b> в {{ $post->created_at }}</div>
             <p class="mb-auto">{{ $post->post_text }}</p>
@@ -44,11 +26,4 @@
         </div>
       </div>
     @endforeach
-  @endif
-
-  <form action="{{ route('my_posts') }}">
-    <button class="btn btn-primary w-50 py-2 float-right" type="submit">Все мои посты</button>
-  </form>
-</br>
-
 @endsection
