@@ -2,7 +2,7 @@
     "env": {
       "APP_ENV": "production",
       "APP_DEBUG": "false",
-      "APP_URL": "https://your-app-url.vercel.app",
+      "APP_URL": "https://social-app-inky-two.vercel.app",
       "VIEW_COMPILED_PATH": "/tmp",
       "CACHE_DRIVER": "array",
       "LOG_CHANNEL": "stderr"
