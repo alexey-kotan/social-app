@@ -5,19 +5,15 @@
 {{-- секция, куда в основной шаблон html вставляется основной контент данной страницы (секцию нужно закрывать!) --}}
 
 @section('content')
-<div class="dropdown">
-    <form action="{{ route('userpage') }}">
-      <button type="submit" class="badge d-flex align-items-center p-2 pe-2 text-dark-emphasis bg-light-subtle border border-dark-subtle rounded-pill">
-        <img class="rounded-circle me-1" width="100" height="100" src="defolt.png" alt="">&nbsp;&nbsp; <h1>{{ Auth::user()->name }}</h1>
-        {{-- Auth::user() - используется, чтобы считать авторизованного пользователя --}}
-      </button>
-    </form>
+  <div class="dropdown flex items-center">
+    <img class="rounded-circle me-1" width="100" height="100" src="defolt.png" alt=""> 
+    <span class="text-gray-700 font-medium text-2xl">{{ Auth::user()->name }} </span>
   </div><br>
 
-  <h1>Мои посты</h1><br>
+  <span class="text-gray-700 font-medium text-xl"> Мои посты </span>
 
   <form action="{{ route('newpost') }}">
-    <button class="btn btn-primary w-50 py-2" type="submit">Новый пост</button>
+    <button class="btn btn-primary w-80 py-2" type="submit">Новый пост</button>
   </form>
 
   @if(session('success_post'))
@@ -28,9 +24,9 @@
     <p>У вас нет постов. Создайте <a href="{{ route('newpost') }}">новый пост</a>.</p> 
   @else
     @foreach($posts as $post)
-      <div class="col-md-12">
-        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-350 position-relativeц">
-          <div class="col-auto d-none d-lg-block">
+      <div class="col-md-12 bg-gray-100">
+        <div class="row border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-350 position-relativeц">
+          <div class="col-auto d-none d-lg-block mt-2 mb-2">
             @if($post->post_image !== null)
                 <a href="{{ asset('storage/' . $post->post_image) }}" target="_blank">
                 <img src="{{ asset('storage/' . $post->post_image) }}" width="200" height="200" alt="">

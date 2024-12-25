@@ -73,7 +73,7 @@ Route::get('/newpost', function () {
 Route::post('/newpost', [PostController::class, 'post_create'])-> name('post_create');
 // страница с постами юзера
 Route::get('/my_posts', [PostController::class, 'showPosts']) -> middleware('auth') -> name('my_posts');
-// страница с поставми всех юзеров
+// страница с постами всех пользователей
 Route::get('/all_posts', [PostController::class, 'showAllPosts']) -> middleware('auth') -> name('all_posts');
-// 
+// страница всех постов других пользователей
 Route::get('/id_{id}/posts', [PostController::class, 'showUserPosts'])->name('user_posts');

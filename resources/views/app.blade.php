@@ -18,15 +18,15 @@
 
 
 
-<div class="flex flex-row place-content-center">
+<div class="flex min-h-screen bg-gray-200">
     @auth
     {{-- сайдбар доступен только авторизированным пользователям --}}
-        <div class="basis-3/10">
+        <div class="w-3/12">
             @include('blocks.sidebar')
         </div>
     @endauth
 
-    <div class="basis-4/10 bg-red-200 ">
+    <div class="w-11/12 mx-auto ">
         <div class="container ">
             {{-- сюда вставляется основной контент страницы, в которой используется данный шаблон html --}}
             @yield('content')
@@ -34,7 +34,7 @@
     </div>
     
     @auth
-        <div class="basis-3/10">
+        <div class="w-3/12">
             {{-- друзья доступны только авторизированным пользователям --}}
             @include('blocks.friendbar')
         </div>

@@ -5,16 +5,12 @@
 {{-- секция, куда в основной шаблон html вставляется основной контент данной страницы (секцию нужно закрывать!) --}}
 
 @section('content')
-  <div class="dropdown">
-    <form action="{{ route('user_profile', ['id' => $user->id]) }}">
-      <button type="submit" class="badge d-flex align-items-center p-2 pe-2 text-dark-emphasis bg-light-subtle border border-dark-subtle rounded-pill">
-        <img class="rounded-circle me-1" width="100" height="100" src="defolt.png" alt="">&nbsp;&nbsp; <h1>{{ $user->name }}</h1>
-        {{-- Auth::user() - используется, чтобы считать авторизованного пользователя --}}
-      </button>
-    </form>
+  <div class="dropdown flex items-center">
+    <img class="rounded-circle me-1" width="100" height="100" src="defolt.png" alt=""> 
+    <span class="text-gray-700 font-medium text-2xl">{{ $user->name }} </span>
   </div><br>
 
-  <p>Посты пользователя <i>{{ $user->name }}</i></p><br>
+  <span class="text-gray-700 font-medium text-xl">Посты пользователя <i>{{ $user->name }}</i></span><br>
   
   {{-- @if(session('success_post'))
   <p>{{ session('success_post') }}</p>
