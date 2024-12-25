@@ -1,1 +1,16 @@
-{ "rewrites": [{ "source": "/(.*)", "destination": "/" }] }
+{
+    "env": {
+      "APP_ENV": "production",
+      "APP_DEBUG": "false",
+      "APP_URL": "https://your-app-url.vercel.app",
+      "VIEW_COMPILED_PATH": "/tmp",
+      "CACHE_DRIVER": "array",
+      "LOG_CHANNEL": "stderr"
+    },
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "/api/index.php"
+      }
+    ]
+  }
