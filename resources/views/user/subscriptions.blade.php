@@ -1,7 +1,7 @@
 {{-- тут хранится шаблон соновного html файла --}}
 @extends('app')
 {{-- секция для указания названия страницы --}}
-@section('title') Мои друзья @endsection
+@section('title') Мои подписки @endsection
 {{-- секция, куда в основной шаблон html вставляется основной контент данной страницы (секцию нужно закрывать!) --}}
 
 @section('content')
@@ -14,7 +14,12 @@
     </form>
   </div><br>
 
-  <h1>Мои друзья</h1><br>
+  <h1>Мои подписки</h1><br>
+
+  
+  @foreach (Auth::user()->subscriptions as $subscription)  
+    <li><a href="/id_{{$subscription->id}}">{{ $subscription->name }}</a></li>
+  @endforeach
 
 
 @endsection

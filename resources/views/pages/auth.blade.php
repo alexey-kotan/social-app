@@ -4,6 +4,8 @@
 @section('title')Авторизация@endsection
 {{-- секция, куда в основной шаблон html вставляется основной контент данной страницы (секцию нужно закрывать!) --}}
 @section('content')
+
+<div class="w-5/12 mx-auto ">
 <h1>Авторизация</h1>
 
 <p>Пожалуйста авторизуйтесь</p>
@@ -43,5 +45,7 @@
   <form action="{{ route('reg') }}">
     <button class="btn btn-primary w-100 py-2" type="submit">Регистрация</button>
   </form>
+
+</div>
 
 @endsection

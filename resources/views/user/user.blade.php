@@ -5,10 +5,26 @@
 {{-- секция, куда в основной шаблон html вставляется основной контент данной страницы (секцию нужно закрывать!) --}}
 
 @section('content')
-  <div class="dropdown flex items-center">
+  <div class="mb-3 dropdown flex items-center">
     <img class="rounded-circle me-1" width="100" height="100" src="defolt.png" alt=""> 
-    <span class="text-gray-700 font-medium text-2xl">{{ $user->name }} </span>
-  </div><br>
+    <span class="text-gray-700 font-medium text-2xl">{{ $user->name }}</span>
+  </div>
+
+@if(Auth::user()->subscriptions->contains($user->id))
+  <form action="{{ route('unsubscribe', ['id' => $user->id]) }}" method="POST">
+    @csrf
+    <button type="submit" class="mb-3 btn btn-dark">Отписаться</button>
+  </form>
+@else
+  <form action="{{ route('subscribe', ['id' => $user->id]) }}" method="POST">
+    @csrf
+    <button type="submit" class="mb-3 btn btn-primary">Подписаться</button>
+  </form>
+@endif
+
+  @if(session('success_subscribe'))
+    <p>{{ session('success_subscribe') }}</p>
+  @endif <br>
 
   <span class="text-gray-700 font-medium text-xl">Посты пользователя <i>{{ $user->name }}</i></span><br>
   

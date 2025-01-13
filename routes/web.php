@@ -5,7 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RegController;
 use App\Http\Controllers\ForgotPassController;
 use App\Http\Controllers\ResetPassController;
-use App\Http\Controllers\FriendController;
+use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 
@@ -54,13 +54,6 @@ Route::post('/reset_pass', [ResetPassController::class, 'update'])-> name('passw
 // страница пользователя
 Route::get('/userpage', [PostController::class, 'showLastPosts']) -> middleware('auth') -> name('userpage');
 
-//ДРУЗЬЯ
-// страница мои друзья
-Route::get('/friends', function () { 
-    return view('user/friends'); }) -> middleware('auth')
-        -> name('friends');
-// отправка запроса на дружьбу
-Route::post('/friends/{friendId}', [FriendController::class, 'sendFriendRequest'])->middleware('auth');
 // страница другого пользователя + отображение 3х последних постов
 Route::get('/id_{id}', [PostController::class, 'showLastUserPost'])->name('user_profile');
 
@@ -77,3 +70,14 @@ Route::get('/my_posts', [PostController::class, 'showPosts']) -> middleware('aut
 Route::get('/all_posts', [PostController::class, 'showAllPosts']) -> middleware('auth') -> name('all_posts');
 // страница всех постов других пользователей
 Route::get('/id_{id}/posts', [PostController::class, 'showUserPosts'])->name('user_posts');
+
+//ПОДПИСКИ
+// страница мои подписки
+Route::get('/subscriptions', function () { 
+    return view('user/subscriptions'); }) -> middleware('auth')
+        -> name('subscriptions');
+// подписаться
+Route::post('/subscribe/id_{id}', [SubscriptionController::class, 'subscribe'])->name('subscribe')->middleware('auth');
+
+// Отменить подписку
+Route::post('/unsubscribe/id_{id}', [SubscriptionController::class, 'unsubscribe'])->name('unsubscribe')->middleware('auth');

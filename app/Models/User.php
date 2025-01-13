@@ -48,6 +48,7 @@ class User extends Authenticatable
         ];
     }
 
+    // создание slug при создании аккаунта (из никнейма)
     public function getSlugOptions() : SlugOptions
     {
         return SlugOptions::create()
@@ -60,7 +61,13 @@ class User extends Authenticatable
         return $this->hasMany(Post::class, 'user_name', 'name'); // Здесь 'user_name'-это внешний ключ
     }
 
-    public function friends() {
-            return $this->belongsToMany(User::class, 'friends', 'user_id', 'friend_id');
+    public function subscriptions()
+    {
+        return $this->belongsToMany(User::class, 'subscriptions', 'user_id', 'subscribed_to_id');
+    }
+
+    public function subscribers()
+    {
+        return $this->belongsToMany(User::class, 'subscriptions', 'subscribed_to_id', 'user_id');
     }
 }
