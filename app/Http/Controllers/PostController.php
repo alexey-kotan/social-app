@@ -23,7 +23,7 @@ class PostController extends Controller
         ]);
 
         $postData = [
-            'user_name' => Auth::user()->name,
+            'user_id' => Auth::user()->id,
             'post_text' => $request->input('post_text'),
         ];
 
@@ -39,7 +39,7 @@ class PostController extends Controller
         return redirect('userpage')->with('success_post', 'Ваш пост успешно опубликован.');
     }
 
-    // отобразить последние 3 поста пользователя
+    // отобразить последние 3 поста  авториз.пользователя
     public function showLastPosts() {
         $user = Auth::user(); // Получаем пользователя
 
@@ -47,11 +47,11 @@ class PostController extends Controller
             abort(404); // Если пользователь не найден, возвращаем 404
         }
         // Получаем три последних поста пользователя
-        $posts = $user->posts()->orderBy('created_at', 'desc')->take(3)->get();
+        $posts = $user->posts()->with('user')->orderBy('created_at', 'desc')->take(3)->get();
         return view('user.userpage', compact('user', 'posts')); // Передаем данные в представление userpage
     }
 
-    // отобразить все посты пользователя
+    // отобразить все посты авториз.пользователя
     public function showPosts() {
         $user = Auth::user(); // Получаем пользователя
 
@@ -65,7 +65,7 @@ class PostController extends Controller
     
     // отобразить все посты всех пользователей
     public function showAllPosts() {
-        $user = Post::select('user_name')->distinct()->pluck('user_name');
+        $user = Post::select('user_id')->distinct()->pluck('user_id');
         // Получаем три последних поста пользователя
         $posts = Post::orderBy('created_at', 'desc')->get();
         return view('user.all_posts', compact('user', 'posts')); // Передаем данные в представление my_posts
@@ -96,5 +96,18 @@ class PostController extends Controller
             // Получаем три последних поста пользователя
             $posts = $user->posts()->orderBy('created_at', 'desc')->get();
             return view('user.user_posts', compact('user', 'posts')); // Передаем данные в представление my_posts
+        }
+
+        public function showSubscriptionsPosts()
+        {
+            // Получаем всех пользователей, на которых подписан авториз.пользователь
+            $subscriptions = Auth::user()->subscriptions;
+
+            // Получаем посты всех подписанных пользователей
+            $posts = Post::whereIn('user_id', $subscriptions->pluck('id')) // метод pluck('id') возвращает id всех подписок
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            return view('user.subscriptions', compact('subscriptions', 'posts'));
         }
 }

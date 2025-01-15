@@ -58,7 +58,7 @@ class User extends Authenticatable
     }
 
     public function posts() {
-        return $this->hasMany(Post::class, 'user_name', 'name'); // Здесь 'user_name'-это внешний ключ
+        return $this->hasMany(Post::class, 'user_id', 'id'); // Здесь 'user_id'-это внешний ключ
     }
 
     public function subscriptions()

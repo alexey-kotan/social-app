@@ -10,12 +10,15 @@ class Post extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_name',
+        'user_id',
         'post_text',
         'post_image',
     ];
 
+    public function userId() {
+        return $this->belongsTo(User::class, 'user_id', 'id'); // Здесь 'user_id'-это внешний ключ
+    }
     public function user() {
-        return $this->belongsTo(User::class, 'user_name', 'name'); // Здесь 'user_name'-это внешний ключ
+        return $this->belongsTo(User::class, 'user_id', 'id'); // Здесь 'user_id'-это внешний ключ
     }
 }

@@ -36,7 +36,7 @@
     @auth
         <div class="w-3/12">
             {{-- друзья доступны только авторизированным пользователям --}}
-            @include('blocks.friendbar')
+            @include('blocks.subscriptions_bar')
         </div>
     @endauth
 </div>

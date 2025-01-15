@@ -8,13 +8,16 @@
       <a href="{{ route('subscriptions') }}" class="nav-link link-body-emphasis" aria-current="page"> Мои подписки </a>
     </li>
     <li>
+      <a href="{{ route('user_search') }}" class="nav-link link-body-emphasis"> Поиск пользователей </a>
+    </li>
+    <li>
       <a href="{{ route('my_posts') }}" class="nav-link link-body-emphasis"> Мои посты </a>
     </li>
     <li>
       <a href="{{ route('all_posts') }}" class="nav-link link-body-emphasis"> Все посты </a>
     </li>
     <li>
-      <a href="#" class="nav-link link-body-emphasis"> Поддержка </a>
+      <a href="{{ route('faqs') }}" class="nav-link link-body-emphasis"> Поддержка </a>
     </li>
   </ul>
 

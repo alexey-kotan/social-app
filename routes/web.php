@@ -8,6 +8,7 @@ use App\Http\Controllers\ResetPassController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SearchController;
 
 
 // страница faq
@@ -50,12 +51,14 @@ Route::get('/reset_pass', [ResetPassController::class, 'reset'])-> name('passwor
 // сброс пароля после отправки сообщения
 Route::post('/reset_pass', [ResetPassController::class, 'update'])-> name('password.update');
 
-
+//ПОЛЬЗОВАТЕЛЬ
 // страница пользователя
 Route::get('/userpage', [PostController::class, 'showLastPosts']) -> middleware('auth') -> name('userpage');
-
 // страница другого пользователя + отображение 3х последних постов
 Route::get('/id_{id}', [PostController::class, 'showLastUserPost'])->name('user_profile');
+//
+Route::get('/search', [SearchController::class, 'userSearch'])->middleware('auth')->name('user_search');
+
 
 //ПОСТЫ
 // страница нового поста
@@ -73,9 +76,8 @@ Route::get('/id_{id}/posts', [PostController::class, 'showUserPosts'])->name('us
 
 //ПОДПИСКИ
 // страница мои подписки
-Route::get('/subscriptions', function () { 
-    return view('user/subscriptions'); }) -> middleware('auth')
-        -> name('subscriptions');
+Route::get('/subscriptions', [PostController::class, 'showSubscriptionsPosts'])->name('subscriptions');
+
 // подписаться
 Route::post('/subscribe/id_{id}', [SubscriptionController::class, 'subscribe'])->name('subscribe')->middleware('auth');
 
