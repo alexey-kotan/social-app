@@ -14,7 +14,7 @@
 
   {{-- вывод сообщения об успешной смене пароля --}}
   @if(session('success'))
-    <p>{{ $message }}</p>
+    <span class="badge bg-success-subtle text-success-emphasis rounded-pill mt-4 mb-4">{{ $message }}</span>
   @endif
 
   <div class="form-floating">
@@ -43,6 +43,7 @@
   <p>Еще нет аккаунта? Зарегистрируйтесь.</p>
 
   <form action="{{ route('reg') }}">
+    @csrf
     <button class="btn btn-primary w-100 py-2" type="submit">Регистрация</button>
   </form>
 

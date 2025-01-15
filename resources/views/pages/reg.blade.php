@@ -47,6 +47,7 @@
   </form></br>
   <p>Уже есть аккаунта? Авторизуйтесь.</p>
   <form action="{{ route('home') }}">
+    @csrf
     <button class="btn btn-primary w-100 py-2" type="submit">Авторизация</button>
   </form>
 

@@ -12,7 +12,7 @@
 
   {{-- отображение ошибок --}}
   @if(session('success'))
-    <p>{{ $message }}</p>
+    <span class="badge bg-success-subtle text-success-emphasis rounded-pill mt-4 mb-4">{{ $message }}</span>
   @endif
   
   <div class="mb-3">

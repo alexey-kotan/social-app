@@ -9,6 +9,7 @@
     <h1>Все посты</h1><br>
 
     <form action="{{ route('newpost') }}">
+        @csrf
         <button class="btn btn-primary w-50 py-2" type="submit">Новый пост</button>
     </form><br>
 

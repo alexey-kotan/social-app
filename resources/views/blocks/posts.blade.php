@@ -12,6 +12,18 @@
       <div class="mb-1 text-body-secondary">Опубликовал <b>{{ $post->user->name }}</b> в {{ $post->created_at }}</div>
       <p class="mb-auto">{{ $post->post_text }}</p>
     </div>
+    <form action="#">
+      @csrf
+      <button class="btn btn-success w-30 py-2 ml-1 mb-2" type="submit">Нравится</button>
+    </form>
+
+    @if($post->id !== Auth::id())
+    <form action="{{ route('post_delete', ['id' => $post->id]) }}" method="POST">
+      @csrf
+      @method('DELETE')
+      <button class="btn btn-warning w-30 py-2 ml-1 mb-2" type="submit">Удалить пост</button>
+    </form>
+    @endif
   </div>
 </div>
 @endforeach

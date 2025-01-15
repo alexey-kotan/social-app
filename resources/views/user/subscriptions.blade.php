@@ -5,14 +5,6 @@
 {{-- секция, куда в основной шаблон html вставляется основной контент данной страницы (секцию нужно закрывать!) --}}
 
 @section('content')
-<div class="dropdown">
-    <form action="{{ route('userpage') }}">
-      <button type="submit" class="badge d-flex align-items-center p-2 pe-2 text-dark-emphasis bg-light-subtle border border-dark-subtle rounded-pill">
-        <img class="rounded-circle me-1" width="100" height="100" src="defolt.png" alt="">&nbsp;&nbsp; <h1>{{ Auth::user()->name }}</h1>
-        {{-- Auth::user() - используется, чтобы считать авторизованного пользователя --}}
-      </button>
-    </form>
-  </div><br>
 
   <p class="font-bold">Мои подписки</p><br>
 

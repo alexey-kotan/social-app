@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class PostController extends Controller
 {
     // создать пост
-    public function post_create(Request $request){
+    public function create(Request $request){
 
         $request->validate([
             'post_text' => 'required|string|max:255',
@@ -37,6 +37,20 @@ class PostController extends Controller
         Post::create($postData);
         
         return redirect('userpage')->with('success_post', 'Ваш пост успешно опубликован.');
+    }
+
+    public function delete($id) {
+        
+        $post = Post::find($id);
+
+        if(!$post) {
+            return redirect()->back();
+        }
+
+        $post->delete();
+
+        return redirect()->back()->with('success_post', 'Пост успешно удален.');
+
     }
 
     // отобразить последние 3 поста  авториз.пользователя

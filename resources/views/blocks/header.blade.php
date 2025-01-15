@@ -15,10 +15,12 @@
       <div class="btn-group text-end">
         @if(!request()->routeIs('home') && !Auth::check())
           <form action="{{ route('home') }}">
+              @csrf
               <button type="submit" class="btn btn-light rounded-pill px-3">Войти</button>
           </form>
         @elseif(!request()->routeIs('reg') && !Auth::check())
           <form action="{{ route('reg') }}">
+            @csrf
             <button type="submit" class="btn btn-light rounded-pill px-3">Регистрация</button>
           </form>
         @endif

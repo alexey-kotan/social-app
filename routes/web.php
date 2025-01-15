@@ -66,7 +66,9 @@ Route::get('/newpost', function () {
     return view('user/newpost'); }) -> middleware('auth')
         -> name('newpost');
 // контроллер новый пост
-Route::post('/newpost', [PostController::class, 'post_create'])-> name('post_create');
+Route::post('/newpost', [PostController::class, 'create'])-> name('post_create');
+// контроллер удаления поста
+Route::delete('/posts/{id}', [PostController::class, 'delete'])->name('post_delete');
 // страница с постами юзера
 Route::get('/my_posts', [PostController::class, 'showPosts']) -> middleware('auth') -> name('my_posts');
 // страница с постами всех пользователей

@@ -13,11 +13,12 @@
   <span class="text-gray-700 font-medium text-xl"> Мои посты </span>
 
   <form action="{{ route('newpost') }}">
+    @csrf
     <button class="btn btn-primary w-80 py-2" type="submit">Новый пост</button>
   </form>
 
   @if(session('success_post'))
-    <p>{{ session('success_post') }}</p>
+    <span class="badge bg-success-subtle text-success-emphasis rounded-pill mt-4 mb-4">{{ session('success_post') }}</span>
   @endif <br>
 
   @if($posts->isEmpty())
@@ -27,6 +28,7 @@
   @endif
 
   <form action="{{ route('my_posts') }}">
+    @csrf
     <button class="btn btn-primary w-50 py-2 float-right" type="submit">Все мои посты</button>
   </form>
 </br>

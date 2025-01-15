@@ -9,6 +9,7 @@
 
     <div class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
         <form action="{{ route('user_search') }}" method="GET">
+            @csrf
             <input type="text" class="mb-2 form-control" name="search" placeholder="Введите ID или никнейм пользователя для поиска" aria-label="Search">
             <button class="btn btn-primary w-40 py-2 mb-12" type="submit">Поиск</button>
         </form>

@@ -23,7 +23,7 @@
 @endif
 
   @if(session('success_subscribe'))
-    <p>{{ session('success_subscribe') }}</p>
+    <span class="badge bg-success-subtle text-success-emphasis rounded-pill mt-4 mb-4">{{ session('success_subscribe') }}</span>
   @endif <br>
 
   <span class="text-gray-700 font-medium text-xl">Посты пользователя <i>{{ $user->name }}</i></span><br>
@@ -35,6 +35,7 @@
     @include('blocks.posts')
     
     <form action="{{ route('user_posts', ['id' => $user->id]) }}">
+      @csrf
       <button class="btn btn-primary w-50 py-2 float-right" type="submit">Все посты {{ $user->name }}</button>
     </form></br>
   @endif
