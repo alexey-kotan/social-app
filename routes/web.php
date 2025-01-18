@@ -9,6 +9,7 @@ use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\EditProfileController;
 
 
 // страница faq
@@ -56,16 +57,22 @@ Route::post('/reset_pass', [ResetPassController::class, 'update'])-> name('passw
 Route::get('/userpage', [PostController::class, 'showLastPosts']) -> middleware('auth') -> name('userpage');
 // страница другого пользователя + отображение 3х последних постов
 Route::get('/id_{id}', [PostController::class, 'showLastUserPost'])->name('user_profile');
-//
+// страница поиска пользователей
 Route::get('/search', [SearchController::class, 'userSearch'])->middleware('auth')->name('user_search');
 
+//АВАТАР
+// страница редактирования профиля авториз.пользователя
+Route::get('/edit_profile', function () { 
+    return view('user/edit_profile'); }) -> middleware('auth')
+        -> name('edit_profile');
+Route::post('/edit_profile/avatar', [EditProfileController::class, 'avatar'])->middleware('auth')->name('edit_avatar');
 
 //ПОСТЫ
 // страница нового поста
 Route::get('/newpost', function () { 
     return view('user/newpost'); }) -> middleware('auth')
         -> name('newpost');
-// контроллер новый пост
+// контроллер создание поста
 Route::post('/newpost', [PostController::class, 'create'])-> name('post_create');
 // контроллер удаления поста
 Route::delete('/posts/{id}', [PostController::class, 'delete'])->name('post_delete');
@@ -75,6 +82,8 @@ Route::get('/my_posts', [PostController::class, 'showPosts']) -> middleware('aut
 Route::get('/all_posts', [PostController::class, 'showAllPosts']) -> middleware('auth') -> name('all_posts');
 // страница всех постов других пользователей
 Route::get('/id_{id}/posts', [PostController::class, 'showUserPosts'])->name('user_posts');
+// контроллер лайк на пост
+Route::post('/posts/{id}/like', [PostController::class, 'post_like'])->name('post_like');
 
 //ПОДПИСКИ
 // страница мои подписки

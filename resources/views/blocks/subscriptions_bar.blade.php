@@ -10,7 +10,7 @@
         @foreach (Auth::user()->subscriptions as $subscription)
           <div class="mt-8 flex items-center gap-4 p-4">
             <a href="/id_{{$subscription->id}}">
-                <img class="w-12 h-12 rounded-full" src="defolt.png" alt="{{ $subscription->name }}">
+                <img class="w-12 h-12 rounded-full" src="{{ $subscription->avatar }}" alt="{{ $subscription->name }}">
             </a>
             <a href="/id_{{$subscription->id}}" class="text-blue-600 hover:underline">{{ $subscription->name }}</a>
           </div>

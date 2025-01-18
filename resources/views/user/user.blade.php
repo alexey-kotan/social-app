@@ -6,10 +6,10 @@
 
 @section('content')
   <div class="mb-3 dropdown flex items-center">
-    <img class="rounded-circle me-1" width="100" height="100" src="defolt.png" alt=""> 
+    <img class="rounded-circle me-1" width="100" height="100" src="{{ $user->avatar }}" alt=""> 
     <span class="text-gray-700 font-medium text-2xl">{{ $user->name }}</span>
   </div>
-
+  
 @if(Auth::user()->subscriptions->contains($user->id))
   <form action="{{ route('unsubscribe', ['id' => $user->id]) }}" method="POST">
     @csrf

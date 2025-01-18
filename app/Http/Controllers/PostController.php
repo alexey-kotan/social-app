@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\PostLike;
 use Illuminate\Support\Facades\Auth;
+
+use Illuminate\Support\Facades\Log;
 
 
 class PostController extends Controller
@@ -61,8 +64,11 @@ class PostController extends Controller
             abort(404); // Если пользователь не найден, возвращаем 404
         }
         // Получаем три последних поста пользователя
-        $posts = $user->posts()->with('user')->orderBy('created_at', 'desc')->take(3)->get();
-        return view('user.userpage', compact('user', 'posts')); // Передаем данные в представление userpage
+        $posts = $user->posts()->with(['post_likes' => function($query) { // используем жадную загрузку с фильтром $query
+            $query->where('user_id', Auth::id()); }]) // загружаем только лайки текущего пользователя
+            ->orderBy('created_at', 'desc')->take(3)->get(); // выводим 3 последних поста
+
+        return view('user.userpage', compact('user', 'posts')); // передаем данные в представление userpage
     }
 
     // отобразить все посты авториз.пользователя
@@ -73,15 +79,20 @@ class PostController extends Controller
             abort(404); // Если пользователь не найден, возвращаем 404
         }
         // Получаем три последних поста пользователя
-        $posts = $user->posts()->orderBy('created_at', 'desc')->get();
+        $posts = $user->posts()->with(['post_likes' => function($query) {
+            $query->where('user_id', Auth::id());}])
+            ->orderBy('created_at', 'desc')->get();
+        
         return view('user.my_posts', compact('user', 'posts')); // Передаем данные в представление my_posts
     }
     
     // отобразить все посты всех пользователей
     public function showAllPosts() {
         $user = Post::select('user_id')->distinct()->pluck('user_id');
-        // Получаем три последних поста пользователя
-        $posts = Post::orderBy('created_at', 'desc')->get();
+        $posts = Post::with(['post_likes' => function($query) {
+            $query->where('user_id', Auth::id());}])
+            ->orderBy('created_at', 'desc')->get();
+        
         return view('user.all_posts', compact('user', 'posts')); // Передаем данные в представление my_posts
     }
 
@@ -96,7 +107,10 @@ class PostController extends Controller
             return redirect('userpage');
         }
         // Получаем три последних поста пользователя
-        $posts = $user->posts()->orderBy('created_at', 'desc')->take(3)->get();
+        $posts = $user->posts()->with(['post_likes' => function($query) {
+            $query->where('user_id', Auth::id());}])
+            ->orderBy('created_at', 'desc')->take(3)->get();
+        
         return view('user.user', compact('user', 'posts')); // Передаем данные в представление user
     }
 
@@ -107,8 +121,10 @@ class PostController extends Controller
             if (!$user) {
                 abort(404); // Если пользователь не найден, возвращаем 404
             }
-            // Получаем три последних поста пользователя
-            $posts = $user->posts()->orderBy('created_at', 'desc')->get();
+            $posts = $user->posts()->with(['post_likes' => function($query) {
+                $query->where('user_id', Auth::id());}])
+                ->orderBy('created_at', 'desc')->get();
+            
             return view('user.user_posts', compact('user', 'posts')); // Передаем данные в представление my_posts
         }
 
@@ -119,9 +135,34 @@ class PostController extends Controller
 
             // Получаем посты всех подписанных пользователей
             $posts = Post::whereIn('user_id', $subscriptions->pluck('id')) // метод pluck('id') возвращает id всех подписок
+                ->with(['post_likes' => function($query) {
+                $query->where('user_id', Auth::id());}])
                 ->orderBy('created_at', 'desc')
                 ->get();
 
             return view('user.subscriptions', compact('subscriptions', 'posts'));
+        }
+
+        // лайки
+        public function post_like($post_id) {
+
+            $post = Post::findOrFail($post_id);
+
+            // проверяем, ставил ли пользователь уже лайк на этот пост
+            $like = PostLike::where('user_id', Auth::id())->where('post_id', $post_id)->first();
+
+            if($like) { // если да
+                $like->delete();  // удаляем его
+                $post->decrement('likes'); // удаляем лайк из счетчика лайков в posts
+                return redirect()->back();
+            } else { // если нет
+                PostLike::create([ // добавляем его
+                    'user_id' => Auth::id(),
+                    'post_id' => $post_id,
+                ]);
+                
+                $post->increment('likes');  // добавлем лайк из счетчика лайков в posts
+                return redirect()->back();
+            }
         }
 }

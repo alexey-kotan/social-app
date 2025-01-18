@@ -20,7 +20,7 @@
     <textarea class="form-control" id="post_text" name="post_text"  required autofocus rows="3"></textarea>
 
     @error('post_text')
-    <p>{{ $message }}</p>
+      <span class="badge bg-danger-subtle text-danger-emphasis rounded-pill">{{ $message }}</span>
     @enderror
   </div></br>
 

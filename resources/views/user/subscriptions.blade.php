@@ -15,7 +15,7 @@
       <div class="col-md-12 bg-blue-100">
         <div class="row border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-350 position-relativeц">
             <div class="col-auto d-none d-lg-block mt-2 mb-2">
-                <a href="/id_{{$subscription->id}}"><img src="defolt.png" width="50" height="50" alt=""></a>
+                <a href="/id_{{$subscription->id}}"><img src="{{ $subscription->avatar }}" width="50" height="50" alt=""></a>
             </div>
             
             <div class="col p-6 d-flex flex-column">

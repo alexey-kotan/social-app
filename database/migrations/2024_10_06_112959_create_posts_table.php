@@ -16,7 +16,7 @@ return new class extends Migration
             // Устанавливаем внешний ключ, cascade - если пользователь будет удален, все связанные посты также будут удалены
             $table->text('post_text');
             $table->string('post_image')->nullable(); // для изображений указываем string, тк они будут хранить его url, nullable - может содердать какое-то значение или же отсутствовать (null)
-            $table->unsignedBigInteger('likes')->nullable(); // unsigned - не отриц. числа BigInteger - работа с большими числами
+            $table->unsignedBigInteger('likes')->default(0);; // unsigned - не отриц. числа BigInteger - работа с большими числами
             $table->timestamps();
         });
     }

@@ -6,9 +6,14 @@
 
 @section('content')
   <div class="dropdown flex items-center">
-    <img class="rounded-circle me-1" width="100" height="100" src="defolt.png" alt=""> 
+    <img class="rounded-circle me-1" width="100" height="100" src="{{ asset('storage/' . Auth::user()->avatar) }}" alt=""> 
     <span class="text-gray-700 font-medium text-2xl">{{ Auth::user()->name }} </span>
   </div><br>
+  
+  <form action="{{ route('edit_profile') }}">
+    @csrf
+    <button class="btn btn-light w-40 py-1 mb-2" type="submit">Сменить аватар</button>
+  </form>
 
   <span class="text-gray-700 font-medium text-xl"> Мои посты </span>
 
@@ -19,7 +24,7 @@
 
   @if(session('success_post'))
     <span class="badge bg-success-subtle text-success-emphasis rounded-pill mt-4 mb-4">{{ session('success_post') }}</span>
-  @endif <br>
+  @endif
 
   @if($posts->isEmpty())
     <p>У вас нет постов. Создайте <a href="{{ route('newpost') }}">новый пост</a>.</p> 

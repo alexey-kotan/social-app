@@ -21,7 +21,7 @@
                 <div class="col-md-12 bg-blue-100">
                     <div class="row border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-350 position-relativeц">
                         <div class="col-auto d-none d-lg-block mt-2 mb-2">
-                            <a href="{{ route('user_profile', ['id' => $user->id]) }}"><img src="defolt.png" width="50" height="50" alt=""></a>
+                            <a href="{{ route('user_profile', ['id' => $user->id]) }}"><img src="{{ $user->avatar }}" width="50" height="50" alt=""></a>
                         </div>
                         
                         <div class="col p-6 d-flex flex-column">

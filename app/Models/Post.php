@@ -13,6 +13,7 @@ class Post extends Model
         'user_id',
         'post_text',
         'post_image',
+        'likes',
     ];
 
     public function userId() {
@@ -20,5 +21,9 @@ class Post extends Model
     }
     public function user() {
         return $this->belongsTo(User::class, 'user_id', 'id'); // Здесь 'user_id'-это внешний ключ
+    }
+
+    public function post_likes() {
+        return $this->hasMany(PostLike::class); // Cвязь с моделью PostLike
     }
 }
