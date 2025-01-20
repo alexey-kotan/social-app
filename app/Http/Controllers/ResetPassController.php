@@ -27,7 +27,7 @@ class ResetPassController extends Controller
             'password' => bcrypt($request->password),
         ]);
 
-        return redirect()->route('auth')->with('success', 'Ваш пароль успешно обновлен');
+        return redirect()->route('home')->with('success', 'Ваш пароль успешно обновлен');
         // после смены пароля перенаправление пользователя на страницу входа с сообщение об успехе
     }
 }

@@ -6,7 +6,7 @@
 
 @section('content')
   <div class="mb-3 dropdown flex items-center">
-    <img class="rounded-circle me-1" width="100" height="100" src="{{ $user->avatar }}" alt=""> 
+    <img class="rounded-circle me-1" width="100" height="100" src="{{ asset('storage/' . $user->avatar) }}" alt=""> 
     <span class="text-gray-700 font-medium text-2xl">{{ $user->name }}</span>
   </div>
   

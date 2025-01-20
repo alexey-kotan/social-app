@@ -11,8 +11,17 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        // Настройка доверенных прокси
+        $middleware->trustProxies(at: [
+            '192.168.1.1', // Замените на ваши IP-адреса
+            '192.168.1.2',
+            '*', // Или используйте '*' для доверия всем прокси
+        ]);
+
+        // Другие настройки middleware
+        $middleware->trustHosts(at: ['yourdomain.com', '*.yourdomain.com']);
     })
+    
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();

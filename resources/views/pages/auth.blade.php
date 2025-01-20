@@ -14,7 +14,7 @@
 
   {{-- вывод сообщения об успешной смене пароля --}}
   @if(session('success'))
-    <span class="badge bg-success-subtle text-success-emphasis rounded-pill mt-4 mb-4">{{ $message }}</span>
+    <span class="badge bg-success-subtle text-success-emphasis rounded-pill mt-4 mb-4">{{ session('success') }}</span>
   @endif
 
   <div class="form-floating">
