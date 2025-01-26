@@ -48,4 +48,23 @@ class EditProfileController extends Controller
         
         return redirect('userpage')->with('success_post', 'БИО отредактированно.');
     }
+
+    public function name(Request $request) {
+
+        $request->validate([
+            'name' =>'required|string|min:2|max:20|unique:users,name|regex:/^(?! )[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*(?<! )$/',
+        ],
+[
+            'name.regex' => 'Имя может содержать только английские буквы и цифры, не может содержать более одного пробела подряд и не может начинаться или заканчиваться пробелами.',
+        ]);
+
+        // находим авториз.пользователя
+        $user = Auth::user();
+
+        // проверка и сохранение био
+        $user->name = $request->input('name');
+        $user->save();
+        
+        return redirect('userpage')->with('success_post', 'Ваше имя изменено.');
+    }
 }

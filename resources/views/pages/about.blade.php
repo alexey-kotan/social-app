@@ -4,5 +4,7 @@
 @section('title') О WordPower @endsection
 {{-- секция, куда в основной шаблон html вставляется основной контент данной страницы (секцию нужно закрывать!) --}}
 @section('content')
-<h1> О WordPower </h1>
+
+    
+
 @endsection

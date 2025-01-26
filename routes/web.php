@@ -69,6 +69,8 @@ Route::get('/edit_profile', function () {
 Route::post('/edit_profile/avatar', [EditProfileController::class, 'avatar'])->middleware('auth')->name('edit_avatar');
 // редактировать био
 Route::post('/edit_profile/bio', [EditProfileController::class, 'bio'])->middleware('auth')->name('edit_bio');
+// редактировать имя
+Route::post('/edit_profile/name', [EditProfileController::class, 'name'])->middleware('auth')->name('edit_name');
 
 //ПОСТЫ
 // страница нового поста

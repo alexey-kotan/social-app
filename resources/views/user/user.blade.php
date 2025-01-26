@@ -8,17 +8,7 @@
 
   @include('blocks.user_info')
     
-  @if(Auth::user()->subscriptions->contains($user->id))
-    <form action="{{ route('unsubscribe', ['id' => $user->id]) }}" method="POST">
-      @csrf
-      <button type="submit" class="mb-3 btn btn-dark">Отписаться</button>
-    </form>
-  @else
-    <form action="{{ route('subscribe', ['id' => $user->id]) }}" method="POST">
-      @csrf
-      <button type="submit" class="mb-3 btn btn-primary">Подписаться</button>
-    </form>
-  @endif
+  @include('blocks.subscribe_block')
 
   @if(session('success_subscribe'))
     <span class="badge bg-success-subtle text-success-emphasis rounded-pill mt-4 mb-4">{{ session('success_subscribe') }}</span>
@@ -34,7 +24,7 @@
     
     <form action="{{ route('user_posts', ['id' => $user->id]) }}">
       @csrf
-      <button class="btn btn-primary w-50 py-2 float-right" type="submit">Все посты {{ $user->name }}</button>
+      <button class="btn btn-primary w-50 py-2 float-right mb-2" type="submit">Все посты {{ $user->name }}</button>
     </form></br>
   @endif
   

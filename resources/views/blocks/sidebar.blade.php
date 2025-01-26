@@ -1,6 +1,4 @@
 <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px;">
-  <hr>
-
     <form method="get" action="{{ route('home') }}">
       @csrf
       <button type="submit" class="btn btn-light rounded-pill px-3k">Профиль</button>
@@ -35,5 +33,4 @@
     @csrf
     <button type="submit" class="btn btn-light rounded-pill px-3k">Выйти из аккаунта</button>
   </form>
-  
 </div>
