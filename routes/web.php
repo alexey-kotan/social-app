@@ -60,12 +60,15 @@ Route::get('/id_{id}', [PostController::class, 'showLastUserPost'])->name('user_
 // страница поиска пользователей
 Route::get('/search', [SearchController::class, 'userSearch'])->middleware('auth')->name('user_search');
 
-//АВАТАР
+//РЕДАКТИРОВАНИЕ ПРОФИЛЯ
 // страница редактирования профиля авториз.пользователя
 Route::get('/edit_profile', function () { 
     return view('user/edit_profile'); }) -> middleware('auth')
         -> name('edit_profile');
+// сменить аватар
 Route::post('/edit_profile/avatar', [EditProfileController::class, 'avatar'])->middleware('auth')->name('edit_avatar');
+// редактировать био
+Route::post('/edit_profile/bio', [EditProfileController::class, 'bio'])->middleware('auth')->name('edit_bio');
 
 //ПОСТЫ
 // страница нового поста

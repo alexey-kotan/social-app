@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class SubscriptionController extends Controller
 {
+    // подписка
     public function subscribe($id) {
 
         $checkSubscription = Subscription::where('user_id', Auth::id()) // проверяем, авториз. пользователь не подписан на данного
@@ -36,4 +37,15 @@ class SubscriptionController extends Controller
 
         return redirect()->back()->with('success_subscribe', 'Подписка отменена.');
     }
+
+    // отображение числа подписчиков у нас
+    public function my_subscribers() {
+        $subscribers = Subscription::where('subscribed_to_id', Auth::id())->count();
+        return $subscribers;
+    }
+    public function user_subscribers($id) {
+        $subscribers = Subscription::where('subscribed_to_id', $id)->count();
+        return $subscribers;
+    }
+    
 }

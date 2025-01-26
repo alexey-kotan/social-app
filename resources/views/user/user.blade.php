@@ -5,22 +5,20 @@
 {{-- секция, куда в основной шаблон html вставляется основной контент данной страницы (секцию нужно закрывать!) --}}
 
 @section('content')
-  <div class="mb-3 dropdown flex items-center">
-    <img class="rounded-circle me-1" width="100" height="100" src="{{ asset('storage/' . $user->avatar) }}" alt=""> 
-    <span class="text-gray-700 font-medium text-2xl">{{ $user->name }}</span>
-  </div>
-  
-@if(Auth::user()->subscriptions->contains($user->id))
-  <form action="{{ route('unsubscribe', ['id' => $user->id]) }}" method="POST">
-    @csrf
-    <button type="submit" class="mb-3 btn btn-dark">Отписаться</button>
-  </form>
-@else
-  <form action="{{ route('subscribe', ['id' => $user->id]) }}" method="POST">
-    @csrf
-    <button type="submit" class="mb-3 btn btn-primary">Подписаться</button>
-  </form>
-@endif
+
+  @include('blocks.user_info')
+    
+  @if(Auth::user()->subscriptions->contains($user->id))
+    <form action="{{ route('unsubscribe', ['id' => $user->id]) }}" method="POST">
+      @csrf
+      <button type="submit" class="mb-3 btn btn-dark">Отписаться</button>
+    </form>
+  @else
+    <form action="{{ route('subscribe', ['id' => $user->id]) }}" method="POST">
+      @csrf
+      <button type="submit" class="mb-3 btn btn-primary">Подписаться</button>
+    </form>
+  @endif
 
   @if(session('success_subscribe'))
     <span class="badge bg-success-subtle text-success-emphasis rounded-pill mt-4 mb-4">{{ session('success_subscribe') }}</span>

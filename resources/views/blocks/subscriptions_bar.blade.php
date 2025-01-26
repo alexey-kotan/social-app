@@ -7,8 +7,9 @@
           <p>У вас нет подписок</p> 
         </div>
       @else
+        <p class="mb-12"></p>
         @foreach (Auth::user()->subscriptions as $subscription)
-          <div class="mt-8 flex items-center gap-4 p-4">
+          <div class="flex items-center gap-2 p-2">
             <a href="/id_{{$subscription->id}}">
                 <img class="w-12 h-12 rounded-full" src="{{ asset('storage/' . $subscription->avatar) }}" alt="{{ $subscription->name }}">
             </a>

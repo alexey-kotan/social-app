@@ -14,7 +14,7 @@ class SearchController extends Controller
 
         if($search) {
             $users = User::where('id', $search)
-                ->orWhere('name', 'LIKE', '%{$search}%')
+                ->orWhere('name', 'LIKE', '%' . $search . '%')
                 ->get();
         }
         

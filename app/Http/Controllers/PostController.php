@@ -68,7 +68,9 @@ class PostController extends Controller
             $query->where('user_id', Auth::id()); }]) // загружаем только лайки текущего пользователя
             ->orderBy('created_at', 'desc')->take(3)->get(); // выводим 3 последних поста
 
-        return view('user.userpage', compact('user', 'posts')); // передаем данные в представление userpage
+        $subscriptionCount = new SubscriptionController()->my_subscribers();
+
+        return view('user.userpage', compact('user', 'posts', 'subscriptionCount')); // передаем данные в представление userpage
     }
 
     // отобразить все посты авториз.пользователя
@@ -111,7 +113,9 @@ class PostController extends Controller
             $query->where('user_id', Auth::id());}])
             ->orderBy('created_at', 'desc')->take(3)->get();
         
-        return view('user.user', compact('user', 'posts')); // Передаем данные в представление user
+        $subscriptionCount = new SubscriptionController()->user_subscribers($id);
+        
+        return view('user.user', compact('user', 'posts', 'subscriptionCount')); // Передаем данные в представление user
     }
 
         // отобразить все посты другого пользователя

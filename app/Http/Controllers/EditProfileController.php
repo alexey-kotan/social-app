@@ -32,4 +32,20 @@ class EditProfileController extends Controller
 
         return redirect('edit_profile')->with('success_edit', 'Ваш аватар успешно обновлен.');
     }
+
+    public function bio(Request $request) {
+
+        $request->validate([
+            'bio_text' => 'required|string|max:450',
+        ]);
+
+        // находим авториз.пользователя
+        $user = Auth::user();
+
+        // проверка и сохранение био
+        $user->bio = $request->input('bio_text');
+        $user->save();
+        
+        return redirect('userpage')->with('success_post', 'БИО отредактированно.');
+    }
 }
