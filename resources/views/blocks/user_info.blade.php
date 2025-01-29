@@ -1,3 +1,4 @@
+
 <div class="flex mt-3">
     <div class="w-1/2 mx-auto">
       <div class="dropdown flex items-center">
@@ -5,9 +6,11 @@
         <span class="text-gray-700 font-medium text-2xl">{{ $user->name }} </span>
       </div>
     </div>
-    <div class="w-1/2 mx-auto">
+  <div class="hidden md:block">
+    <div class="w-1/2 mx-auto overflow-hidden">
       <p><b>БИО:</b> {{ $user->bio }}</p>
     </div>
+  </div>
   </div>
 
   @if(Auth::user() ==  $user)

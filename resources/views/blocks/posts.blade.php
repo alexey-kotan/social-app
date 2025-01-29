@@ -1,7 +1,7 @@
 @foreach($posts as $post)
 <div class="col-md-12 bg-gray-100">
-  <div class="row border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-350 position-relativeц">
-    <div class="col-auto d-none d-lg-block mt-2 mb-2">
+  <div class="row border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-350 position-relative">
+    <div class="col-auto d-lg-block mt-2 mb-2">
       @if($post->post_image !== null)
           <a href="{{ asset('storage/' . $post->post_image) }}" target="_blank">
           <img src="{{ asset('storage/' . $post->post_image) }}" width="150" height="150" alt="">

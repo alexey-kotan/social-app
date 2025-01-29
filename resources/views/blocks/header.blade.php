@@ -6,14 +6,14 @@
         </a>
       </div>
 
-      <ul class="nav mb-2 justify-content-center mb-md-0">
-        <form action="{{ route('about') }}">
-          @csrf
-          <button type="submit" class="btn btn-light rounded-pill px-3">О проекте</button>
-        </form>      
-      </ul>
-
       <div class="btn-group text-end">
+        <ul class="nav mb-2 justify-content-center mb-md-0">
+          <form action="{{ route('about') }}">
+            @csrf
+            <button type="submit" class="btn btn-light rounded-pill px-3">О проекте</button>
+          </form>      
+        </ul>
+        
         @if(!request()->routeIs('home') && !Auth::check())
           <form action="{{ route('home') }}">
               @csrf
