@@ -21,7 +21,7 @@
         <div class="search-results">
             @foreach($users as $user)
                 <div class="col-md-12 bg-blue-100">
-                    <div class="row border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-350 position-relativeц">
+                    <div class="row border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-350 position-relative">
                         <div class="col-auto d-none d-lg-block mt-2 mb-2">
                             <a href="{{ route('user_profile', ['id' => $user->id]) }}"><img src="{{asset('storage/' . $user->avatar) }}" width="50" height="50" alt=""></a>
                         </div>
@@ -29,7 +29,14 @@
                         <div class="col p-6 d-flex flex-column">
                             <a href="{{ route('user_profile', ['id' => $user->id]) }}" class="text-blue-600 hover:underline">{{ $user->name }}</a>
                         </div>
-                        
+                        @if($user->role == 'admin')
+                            <div class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+                                <form action="{{ route('ban') }}" method="GET">
+                                    @csrf
+                                    <button class="btn btn-dark w-40 py-2 mb-12" type="submit">Заблокировать</button>
+                                </form>
+                            </div>
+                        @endif
                         <div class="col-auto p-6 d-flex flex-column">
                             @include('blocks.subscribe_block')
                         </div>

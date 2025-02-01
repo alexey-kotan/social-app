@@ -19,29 +19,45 @@
 
     <div class="flex min-h-screen bg-gray-200">
         @auth
-        {{-- сайдбар доступен только авторизированным пользователям --}}
-            <div class="hidden lg:block w-3/12">
-                @include('blocks.sidebar')
-            </div>
+            @active
+                @admin
+                    <div class="hidden lg:block w-3/12">
+                        @include('admin.sidebar')
+                    </div>
+                    
+                    @include('admin.sidebar_for_mobile')
+                @endadmin
 
-            @include('blocks.sidebar_for_mobile')
+                @user
+                    {{-- сайдбар доступен только авторизированным пользователям --}}
+                    <div class="hidden lg:block w-3/12">
+                        @include('blocks.sidebar')
+                    </div>
+                    
+                    
+                    @include('blocks.sidebar_for_mobile')
+                @enduser
+            @endactive
         @endauth
 
-        <div class="flex-1 w-full w-11/12 mx-auto">
-            <div class="container ">
-                {{-- сюда вставляется основной контент страницы, в которой используется данный шаблон html --}}
-                @yield('content')
+            <div class="flex-1 w-full w-11/12 mx-auto">
+                <div class="container ">
+                    {{-- сюда вставляется основной контент страницы, в которой используется данный шаблон html --}}
+                    @yield('content')
+                </div>
             </div>
-        </div>
-        
+            
         @auth
-            <div class="hidden lg:block w-3/12">
-                {{-- друзья доступны только авторизированным пользователям --}}
-                @include('blocks.subscriptions_bar')
-            </div>
+            @active    
+                @user
+                    <div class="hidden lg:block w-3/12">
+                        {{-- друзья доступны только авторизированным пользователям --}}
+                        @include('blocks.subscriptions_bar')
+                    </div>
+                @enduser
+            @endactive
         @endauth
     </div>
-
 
     @include('blocks.footer')
 </body>

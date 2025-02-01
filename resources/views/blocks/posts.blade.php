@@ -27,7 +27,7 @@
           {{ $post->post_likes()->where('user_id', Auth::id())->exists() ? 'Вам понравилось' : 'Нравится' }}</button>
       </form>
 
-      @if($post->user_id == Auth::id())
+      @if($post->user_id == Auth::id() || Auth::user()->role == 'admin')
       <form action="{{ route('post_delete', ['id' => $post->id]) }}" method="POST">
         @csrf
         @method('DELETE')

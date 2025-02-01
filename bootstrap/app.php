@@ -20,6 +20,10 @@ return Application::configure(basePath: dirname(__DIR__))
 
         // Другие настройки middleware
         $middleware->trustHosts(at: ['yourdomain.com', '*.yourdomain.com']);
+        $middleware->alias([
+            'active.user' => \App\Http\Middleware\ActiveUserMiddleware::class,
+            'admin' => \App\Http\Middleware\AdminMiddleware::class,
+        ]);
     })
     
     ->withExceptions(function (Exceptions $exceptions) {
