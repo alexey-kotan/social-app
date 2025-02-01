@@ -29,16 +29,18 @@
                         <div class="col p-6 d-flex flex-column">
                             <a href="{{ route('user_profile', ['id' => $user->id]) }}" class="text-blue-600 hover:underline">{{ $user->name }}</a>
                         </div>
-                        @if($user->role == 'admin')
+                        @admin
                             <div class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
                                 <form action="{{ route('ban') }}" method="GET">
                                     @csrf
                                     <button class="btn btn-dark w-40 py-2 mb-12" type="submit">Заблокировать</button>
                                 </form>
                             </div>
-                        @endif
+                        @endadmin
                         <div class="col-auto p-6 d-flex flex-column">
-                            @include('blocks.subscribe_block')
+                            @if(Auth::user() != $user)
+                                @include('blocks.subscribe_block')
+                            @endif
                         </div>
                     </div>
                 </div>

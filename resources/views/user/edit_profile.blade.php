@@ -6,11 +6,11 @@
 
 @section('content')
 
+@include('blocks.user_info')
+
 @if(session('success_edit'))
   <span class="badge bg-success-subtle text-success-emphasis rounded-pill mt-4 mb-4">{{ session('success_edit') }}</span>
 @endif
-
-@include('blocks.user_info')
 
 @error('name')
   <span class="badge bg-danger-subtle text-success-emphasis rounded-pill mt-4 mb-4">{{ $message }}</span>

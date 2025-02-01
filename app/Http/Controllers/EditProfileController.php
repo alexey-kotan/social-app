@@ -46,7 +46,7 @@ class EditProfileController extends Controller
         $user->bio = $request->input('bio_text');
         $user->save();
         
-        return redirect('userpage')->with('success_post', 'БИО отредактированно.');
+        return redirect('edit_profile')->with('success_edit', 'БИО отредактированно.');
     }
 
     public function name(Request $request) {
@@ -65,6 +65,6 @@ class EditProfileController extends Controller
         $user->name = $request->input('name');
         $user->save();
         
-        return redirect('userpage')->with('success_post', 'Ваше имя изменено.');
+        return redirect('edit_profile')->with('success_edit', 'Ваше имя изменено.');
     }
 }
