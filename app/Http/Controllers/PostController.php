@@ -9,27 +9,20 @@ use App\Models\PostLike;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Log;
+use App\Http\Requests\PostRequest;
 
 
 class PostController extends Controller
 {
     // создать пост
-    public function create(Request $request){
-
-        $request->validate([
-            'post_text' => 'required|string|max:255',
-            'post_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120' // валидация изображения
-        ], [
-            'post_image.image' => 'Файл должен быть изображением',
-            'post_image.mimes' => 'Файл должен быть изображением в формате jpeg | png | jpg | gif',
-            'post_image.max' => 'Размер изображения не должен превышать 5 МБ'
-        ]);
-
+    public function create(PostRequest $request){
+        // добавляем в массив postData id авториз.пользователя
         $postData = [
-            'user_id' => Auth::user()->id,
-            'post_text' => $request->input('post_text'),
+            'user_id'=> Auth::id(),
+            'post_text' => $request->post_text
         ];
 
+           
         // Проверка и сохранение изображения
         if ($request->hasFile('post_image')) {
             // Сохранение файла и получение пути
@@ -43,9 +36,9 @@ class PostController extends Controller
     }
 
     public function delete($id) {
-        
+        // находим пост по его id
         $post = Post::find($id);
-
+        // если id поста не найдено
         if(!$post) {
             return redirect()->back();
         }

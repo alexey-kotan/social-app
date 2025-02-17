@@ -14,26 +14,18 @@ use App\Http\Controllers\AdminController;
 
 
 // страница faq
-Route::get('/faqs', function () { 
-return view('pages/faqs'); })
-    -> name('faqs');
+Route::view('/faqs', 'pages/faqs')->name('faqs');
 
 // страница о нас
-Route::get('/about', function () { 
-return view('pages/about'); })
-    -> name('about');
+Route::view('/about', 'pages/about')->name('about');
 
 // страница регистрации
-Route::get('/reg', function () { 
-return view('pages/reg');})->middleware('guest')
-    -> name('reg');
+Route::view('/reg', 'pages/reg')->middleware('guest')->name('reg');
 // контроллер регистрации
 Route::post('/reg', [RegController::class, 'reg'])-> name('user-reg');
 
-// страница авторизации
-Route::get('/', function () { 
-return view('pages/auth');})->middleware('guest')
-    -> name('home');
+// страница авторизации (главная)
+Route::view('/', 'pages/auth')->middleware('guest')->name('home');
 // контроллер авторизации
 Route::post('/', [AuthController::class, 'auth'])->name('user-auth');
 // Всё что передается через post на странице /auth передается в AuthController в метод auth 
@@ -43,9 +35,7 @@ Route::post('/', [AuthController::class, 'auth'])->name('user-auth');
 Route::post('/userpage', [AuthController::class, 'logout']) -> middleware('auth') -> name('logout');
 
 // страница сброса пароля
-Route::get('/forgot_pass', function () { 
-    return view('pages/forgot_pass'); }) -> middleware('guest')
-        -> name('forgot_pass');
+Route::view('/forgot_pass', 'pages/forgot_pass')->middleware('guest')->name('forgot_pass');
 // контроллер сброса пароля
 Route::post('/forgot_pass', [ForgotPassController::class, 'forgot'])->name('forgot');
 // сброс пароля до отправки сообщения
@@ -66,8 +56,7 @@ Route::middleware(['auth', 'active.user'])->group(function () {
 
     //РЕДАКТИРОВАНИЕ ПРОФИЛЯ
     // страница редактирования профиля авториз.пользователя
-    Route::get('/edit_profile', function () { 
-        return view('user/edit_profile'); })->name('edit_profile');
+    Route::view('/edit_profile', 'user/edit_profile')->name('edit_profile');
     // сменить аватар
     Route::post('/edit_profile/avatar', [EditProfileController::class, 'avatar'])->name('edit_avatar');
     // редактировать био
@@ -77,8 +66,7 @@ Route::middleware(['auth', 'active.user'])->group(function () {
 
     //ПОСТЫ
     // страница нового поста
-    Route::get('/newpost', function () { 
-        return view('user/newpost'); })->name('newpost');
+    Route::view('/newpost', 'user/newpost')->name('newpost');
     // контроллер создание поста
     Route::post('/newpost', [PostController::class, 'create'])->name('post_create');
     // контроллер удаления поста

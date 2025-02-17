@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Password;
 use App\Models\User;
+use App\Http\Requests\RegisterRequest;
 
 class ResetPassController extends Controller
 {
@@ -15,17 +16,13 @@ class ResetPassController extends Controller
         // второй аргумент передает данные(допустим о email) в $request для использования в представлении reset_pass
     }
 
-    public function update(Request $request){
-        $request->validate([
-            'password'=>'required|string|min:6|max:40|confirmed'
-        ]); // валидация нового пароля + повтор пароля
+    public function update(RegisterRequest $request){
 
         $user = User::where('email', $request->email)->first();
         // проверяет есть ли в БД переданный email и при первом нахождении(first) передает его в объект $user
 
-        $user->update([ // обновление пароля + хеширование
-            'password' => bcrypt($request->password),
-        ]);
+        $user->updatePassword($request->password);
+        // хеширование и сохранения пароля в модели User
 
         return redirect()->route('home')->with('success', 'Ваш пароль успешно обновлен');
         // после смены пароля перенаправление пользователя на страницу входа с сообщение об успехе

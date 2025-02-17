@@ -7,9 +7,5 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-    public function user_search($id){
-        $user = User::findOrFail($id); // Найти пользователя по ID или вернуть 404
-        return view('user/user', compact('user')); // Возврат представления с данными пользователя
-    }
-    
+    //
 }

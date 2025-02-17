@@ -25,7 +25,7 @@
     <span class="badge bg-success-subtle text-success-emphasis rounded-pill mt-4 mb-4">{{ session('success_post') }}</span>
   @endif
 
-  <span class="text-gray-700 font-medium text-xl"> Мои посты </span>
+  <p class="text-gray-700 font-medium text-xl"> Мои посты </p>
 
   <form action="{{ route('newpost') }}">
     @csrf

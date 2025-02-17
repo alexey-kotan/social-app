@@ -42,7 +42,7 @@ class AdminController extends Controller
         $user->avatar = 'default.png';
         $user->save();
         
-        return redirect()->back()->with('success', 'Пользователь заблокирован.');
+        return redirect()->back()->with('success', 'Пользователь разблокирован.');
     }
 }
 

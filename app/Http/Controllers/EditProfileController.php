@@ -2,22 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\EditProfileRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
+
 
 class EditProfileController extends Controller
 {
-    public function avatar(Request $request) {
-
-        $request->validate([
-            'avatar_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120' // валидация изображения
-        ], [
-            'avatar_image.required' => 'Загрузите изображение',
-            'avatar_image.image' => 'Файл должен быть изображением',
-            'avatar_image.mimes' => 'Файл должен быть изображением в формате jpeg | png | jpg | gif',
-            'avatar_image.max' => 'Размер изображения не должен превышать 5 МБ'
-        ]);
+    
+    public function avatar(EditProfileRequest $request) {
 
         $user = Auth::user();
 
@@ -33,11 +27,7 @@ class EditProfileController extends Controller
         return redirect('edit_profile')->with('success_edit', 'Ваш аватар успешно обновлен.');
     }
 
-    public function bio(Request $request) {
-
-        $request->validate([
-            'bio_text' => 'required|string|max:450',
-        ]);
+    public function bio(EditProfileRequest $request) {
 
         // находим авториз.пользователя
         $user = Auth::user();
@@ -49,14 +39,7 @@ class EditProfileController extends Controller
         return redirect('userpage')->with('success_post', 'БИО отредактированно.');
     }
 
-    public function name(Request $request) {
-
-        $request->validate([
-            'name' =>'required|string|min:2|max:20|unique:users,name|regex:/^(?! )[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*(?<! )$/',
-        ],
-[
-            'name.regex' => 'Имя может содержать только английские буквы и цифры, не может содержать более одного пробела подряд и не может начинаться или заканчиваться пробелами.',
-        ]);
+    public function name(RegisterRequest $request) {
 
         // находим авториз.пользователя
         $user = Auth::user();
