@@ -2,52 +2,44 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\RegisterRequest;
-use App\Http\Requests\EditProfileRequest;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-
+use App\Http\Requests\EditProfile\EditNameRequest;
+use App\Http\Requests\EditProfile\EditAvatarRequest;
+use App\Http\Requests\EditProfile\EditBioRequest;
+use App\Services\EditProfile\AvatarService;
+use App\Services\EditProfile\BioService;
+use App\Services\EditProfile\NameService;
 
 class EditProfileController extends Controller
 {
+    private AvatarService $avatarService;
+    private BioService $bioService;
+    private NameService $nameService;
+
+    public function __construct(AvatarService $avatarService,BioService $bioService,NameService $nameService)
+    {
+        $this->avatarService = $avatarService;
+        $this->bioService = $bioService;
+        $this->nameService = $nameService;
+    }
     
-    public function avatar(EditProfileRequest $request) {
+    public function avatar(EditAvatarRequest $request) {
 
-        $user = Auth::user();
-
-        // Проверка и сохранение изображения
-        if ($request->hasFile('avatar_image')) {
-            // Сохранение файла и получение пути
-            $imagePath = $request->file('avatar_image')->store('images', 'public'); // Указываем диск 'public'
-            
-            $user->avatar = $imagePath; // обновляем столбец avatar и прописываем туда путь из $imagePath
-            $user->save();
-        }
+        $this->avatarService->avatar($request);
 
         return redirect('edit_profile')->with('success_edit', 'Ваш аватар успешно обновлен.');
     }
 
-    public function bio(EditProfileRequest $request) {
+    public function bio(EditBioRequest $request) {
 
-        // находим авториз.пользователя
-        $user = Auth::user();
+        $this->bioService->bio($request);   
 
-        // проверка и сохранение био
-        $user->bio = $request->input('bio_text');
-        $user->save();
-        
-        return redirect('userpage')->with('success_post', 'БИО отредактированно.');
+        return redirect('edit_profile')->with('success_edit', 'БИО отредактированно.');
     }
 
-    public function name(RegisterRequest $request) {
+    public function name(EditNameRequest $request) {
 
-        // находим авториз.пользователя
-        $user = Auth::user();
+        $this->nameService->name($request);   
 
-        // проверка и сохранение био
-        $user->name = $request->input('name');
-        $user->save();
-        
-        return redirect('userpage')->with('success_post', 'Ваше имя изменено.');
+        return redirect('edit_profile')->with('success_edit', 'Ваше имя изменено.');
     }
 }

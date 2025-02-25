@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Password;
 use App\Models\User;
 use App\Http\Requests\RegisterRequest;
 

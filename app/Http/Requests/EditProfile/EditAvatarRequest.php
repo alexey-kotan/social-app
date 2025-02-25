@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\EditProfile;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class EditProfileRequest extends FormRequest
+class EditAvatarRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,7 @@ class EditProfileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'avatar_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120', // валидация изображения
-            'bio_text' => 'required|string|max:450', // валидация БИО
+            'avatar_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120' // валидация изображения
         ];
     }
 
@@ -33,9 +32,7 @@ class EditProfileRequest extends FormRequest
             'avatar_image.required' => 'Загрузите изображение',
             'avatar_image.image' => 'Файл должен быть изображением',
             'avatar_image.mimes' => 'Файл должен быть изображением в формате jpeg | png | jpg | gif',
-            'avatar_image.max' => 'Размер изображения не должен превышать 5 МБ',
-
-            'bio_text.max' => 'Максимальное количество символов 255',
+            'avatar_image.max' => 'Размер изображения не должен превышать 5 МБ'
         ];
     }
 }
