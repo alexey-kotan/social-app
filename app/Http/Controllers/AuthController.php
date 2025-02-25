@@ -3,37 +3,40 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-// use App\Models\User;
-use Illuminate\Support\Facades\Auth; // Подключение фасада Auth для исполльзования attempt
+use App\Http\Requests\AuthRequest; // файл валидации
+use App\Services\AuthService; // файл с бизнес логикой
+use App\Services\LogoutService; // файл с бизнес логикой
 
 class AuthController extends Controller
 {
-    public function auth(Request $request) {
+    private AuthService $authService;
+    private LogoutService $logoutService;
 
-        $request->validate([ //проверяем валидацию
-            'email' => 'required|email', // required - поле не пустое
-            'password' => 'required|string'
-        ]);
+    public function __construct(AuthService $authService, LogoutService $logoutService)
+    {
+        $this->authService = $authService;
+        $this->logoutService = $logoutService;
+    }
 
-        $credentials = $request->only('email', 'password'); // получаем только необходимые поля из запроса $request и заносим в переменную 
-        $remember = $request->has('remember'); // получаем данные о чекбоксе запомни меня и добавляем значекние bool в переменную
+    // авторизация
+    public function auth(AuthRequest $request) {
+        
+        $result = $this->authService->auth($request->all()); // проверяем данные из AuthService
 
-        if (Auth::attempt($credentials, $remember)) { // attempt сверяет данные из переменной credentials с данными в БД
-            // пароль сравнивает только в зашифрованном 'Bcrypt' виде
-            // проверяется занчение remember, если true, то remember_token добавляется в БД и запоминает позьзователя в системе
+        if($result) { // если $result == true
             return redirect()->route('userpage'); // перенаправляет на страницу пользователя
-        } else {
-            return back()->withInput()->withErrors(['email' => trans('auth.failed')]);
-        // back() - возвращает пользователя на ту же страницу, withInput() - сохраняет данные введенные пользователем в поле (через сессии),
-        // withErrors() - сохраняет ошибки из валидации в сессии для дальнейшего вывода на странце
-        // trans - хранит заготовленный ответ на ошибку
+        } else { // если есть ошибки валидации
+            return back()->withInput()->withErrors(['authError' => trans('auth.failed')] );
+            // back() - возвращает пользователя на ту же страницу, withInput() - сохраняет данные введенные пользователем в поле (через сессии),
+            // withErrors() - сохраняет ошибки из валидации в сессии для дальнейшего вывода на странице
+            // trans - хранит заготовленный ответ на ошибку
         }
     }
 
+    // выход из системы
     public function logout(Request $request) {
-        Auth::logout(); // logout удаляет сессию пользователя из куки
-        $request->session()->invalidate(); // удаляет все данные из сессии (для безопасности)
-        $request->session()->regenerateToken(); // меняет csrf токен (для безопасности)
+
+        $this->logoutService->logout($request);
         return redirect()->route('home'); // перенаправляем на главную страницу
     }
 }

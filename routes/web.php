@@ -7,10 +7,12 @@ use App\Http\Controllers\ForgotPassController;
 use App\Http\Controllers\ResetPassController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\PostShowController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\EditProfileController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\LikeController;
 
 
 // страница faq
@@ -45,12 +47,12 @@ Route::post('/reset_pass', [ResetPassController::class, 'update'])->name('passwo
 
 //ПОЛЬЗОВАТЕЛЬ
 // страница пользователя
-Route::get('/userpage', [PostController::class, 'showLastPosts'])->middleware('auth')->name('userpage');
+Route::get('/userpage', [PostShowController::class, 'showLastPosts'])->middleware('auth')->name('userpage');
 
 // доступ только не заблокированным пользователям
 Route::middleware(['auth', 'active.user'])->group(function () {
     // страница другого пользователя + отображение 3х последних постов
-    Route::get('/id_{id}', [PostController::class, 'showLastUserPost'])->name('user_profile');
+    Route::get('/id_{id}', [PostShowController::class, 'showLastUserPost'])->name('user_profile');
     // страница поиска пользователей
     Route::get('/search', [SearchController::class, 'userSearch'])->name('user_search');
 
@@ -72,17 +74,17 @@ Route::middleware(['auth', 'active.user'])->group(function () {
     // контроллер удаления поста
     Route::delete('/posts/{id}', [PostController::class, 'delete'])->name('post_delete');
     // страница с постами юзера
-    Route::get('/my_posts', [PostController::class, 'showPosts'])->name('my_posts');
+    Route::get('/my_posts', [PostShowController::class, 'showPosts'])->name('my_posts');
     // страница с постами всех пользователей
-    Route::get('/all_posts', [PostController::class, 'showAllPosts'])->name('all_posts');
+    Route::get('/all_posts', [PostShowController::class, 'showAllPosts'])->name('all_posts');
     // страница всех постов других пользователей
-    Route::get('/id_{id}/posts', [PostController::class, 'showUserPosts'])->name('user_posts');
+    Route::get('/id_{id}/posts', [PostShowController::class, 'showUserPosts'])->name('user_posts');
     // контроллер лайк на пост
-    Route::post('/posts/{id}/like', [PostController::class, 'post_like'])->name('post_like');
+    Route::post('/posts/{id}/like', [LikeController::class, 'post_like'])->name('post_like');
 
     //ПОДПИСКИ
     // страница мои подписки
-    Route::get('/subscriptions', [PostController::class, 'showSubscriptionsPosts'])->name('subscriptions');
+    Route::get('/subscriptions', [PostShowController::class, 'showSubscriptionsPosts'])->name('subscriptions');
     // подписаться
     Route::post('/subscribe/id_{id}', [SubscriptionController::class, 'subscribe'])->name('subscribe');
     // Отменить подписку

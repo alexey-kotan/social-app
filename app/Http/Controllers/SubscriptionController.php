@@ -38,11 +38,13 @@ class SubscriptionController extends Controller
         return redirect()->back()->with('success_subscribe', 'Подписка отменена.');
     }
 
-    // отображение числа подписчиков у нас
+    // отображение числа подписчиков у авториз.пользователя
     public function my_subscribers() {
         $subscribers = Subscription::where('subscribed_to_id', Auth::id())->count();
         return $subscribers;
     }
+
+    // отображение числа подписчиков у пользователя
     public function user_subscribers($id) {
         $subscribers = Subscription::where('subscribed_to_id', $id)->count();
         return $subscribers;

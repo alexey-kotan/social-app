@@ -5,13 +5,18 @@
 {{-- секция, куда в основной шаблон html вставляется основной контент данной страницы (секцию нужно закрывать!) --}}
 @section('content')
 
+
+@if (session('auth_error'))
+    <div class="alert alert-danger">{{ session('auth_error') }}</div>
+@endif
+
 <div class="w-7/12 mx-auto ">
 
   <p class="d-flex mt-16 mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
     <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
   </svg> Пожалуйста авторизуйтесь</p>
 
-  @error('email')
+  @error('authError')
     <span class="badge bg-danger-subtle text-success-emphasis rounded-pill mt-4 mb-4">{{ $message }}</span>
   @enderror
 
@@ -28,10 +33,18 @@
       <label for="floatingInput">Email</label>
     </div>
 
+    @error('email')
+      <span class="badge bg-danger-subtle text-success-emphasis rounded-pill mt-4 mb-4">{{ $message }}</span>
+    @enderror
+
     <div class="form-floating">
       <input type="password" class="form-control" name="password" required autofocus id="password" placeholder="Password">
       <label for="floatingPassword">Пароль</label>
     </div>
+
+    @error('password')
+      <span class="badge bg-danger-subtle text-success-emphasis rounded-pill mt-4 mb-4">{{ $message }}</span>
+    @enderror
 
     <div class="flex mt-3 ml-4 mb-2">
       <div class="w-1/2 mx-auto ">

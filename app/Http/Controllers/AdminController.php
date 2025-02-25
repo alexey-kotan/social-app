@@ -8,6 +8,7 @@ use App\Models\Post;
 
 class AdminController extends Controller
 {
+    // отобразить всех пользователей
     public function all_users() {
         // данные пользователя
         $user = User::select('id', 'avatar', 'name', 'email', 'role', 'status', 'created_at')
@@ -17,6 +18,7 @@ class AdminController extends Controller
         return view('admin.all_users', compact('user')); // Передаем данные в представление
     }
 
+    // заблокировать пользователя (бан)
     public function ban_user(Request $request) {
         
         $userId = $request->input('user_id');
@@ -33,6 +35,7 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Пользователь заблокирован. Все посты пользователя были удалены');
     }
 
+    // разблокировать пользователя
     public function unban_user(Request $request) {
         $userId = $request->input('user_id');
 
