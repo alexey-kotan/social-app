@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\Auth; // Подключение фасада Auth для исполльзования attempt
+use Illuminate\Http\Request;
 
 class AuthService
 {
@@ -22,5 +23,13 @@ class AuthService
         } else {
             return false;
         }
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout(); // logout удаляет сессию пользователя из куки
+        $request->session()->invalidate(); // удаляет все данные из сессии (для безопасности)
+        $request->session()->regenerateToken(); // меняет csrf токен (для безопасности)
+
     }
 }

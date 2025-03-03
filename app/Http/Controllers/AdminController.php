@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Services\BanService;
-use App\Services\UnbanService;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -21,12 +20,10 @@ class AdminController extends Controller
     }
     
     private BanService $banService;
-    private UnbanService $unbanService;
 
-    public function __construct(BanService $banService, UnbanService $unbanService)
+    public function __construct(BanService $banService)
     {
         $this->banService = $banService;
-        $this->unbanService = $unbanService;
     }
     // заблокировать пользователя (бан)
     public function ban_user(Request $request) {
@@ -39,7 +36,7 @@ class AdminController extends Controller
     // разблокировать пользователя
     public function unban_user(Request $request) {
         
-        $this->unbanService->unban_user($request);
+        $this->banService->unban_user($request);
         
         return redirect()->back()->with('success', 'Пользователь разблокирован.');
     }

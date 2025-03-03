@@ -5,17 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\AuthRequest; // файл валидации
 use App\Services\AuthService; // файл с бизнес логикой
-use App\Services\LogoutService; // файл с бизнес логикой
 
 class AuthController extends Controller
 {
     private AuthService $authService;
-    private LogoutService $logoutService;
 
-    public function __construct(AuthService $authService, LogoutService $logoutService)
+    public function __construct(AuthService $authService)
     {
         $this->authService = $authService;
-        $this->logoutService = $logoutService;
     }
 
     // авторизация
@@ -36,7 +33,7 @@ class AuthController extends Controller
     // выход из системы
     public function logout(Request $request) {
 
-        $this->logoutService->logout($request);
+        $this->authService->logout($request);
         return redirect()->route('home'); // перенаправляем на главную страницу
     }
 }

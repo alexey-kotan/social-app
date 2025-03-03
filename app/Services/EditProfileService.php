@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Services\EditProfile;
+namespace App\Services;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
-class AvatarService
+class EditProfileService
 {
     public function avatar(Request $request)
     {
@@ -19,5 +19,25 @@ class AvatarService
             $user->avatar = $imagePath; // обновляем столбец avatar и прописываем туда путь из $imagePath
             $user->save();
         }
+    }
+
+    public function bio(Request $request)
+    {
+        // находим авториз.пользователя
+        $user = Auth::user();
+
+        // проверка и сохранение био
+        $user->bio = $request->input('bio_text');
+        $user->save();
+    }
+
+    public function name(Request $request)
+    {
+        // находим авториз.пользователя
+        $user = Auth::user();
+
+        // проверка и сохранение имени
+        $user->name = $request->input('name');
+        $user->save();
     }
 }

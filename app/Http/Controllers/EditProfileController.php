@@ -5,40 +5,34 @@ namespace App\Http\Controllers;
 use App\Http\Requests\EditProfile\EditNameRequest;
 use App\Http\Requests\EditProfile\EditAvatarRequest;
 use App\Http\Requests\EditProfile\EditBioRequest;
-use App\Services\EditProfile\AvatarService;
-use App\Services\EditProfile\BioService;
-use App\Services\EditProfile\NameService;
+use App\Services\EditProfileService;
 
 class EditProfileController extends Controller
 {
-    private AvatarService $avatarService;
-    private BioService $bioService;
-    private NameService $nameService;
+    private EditProfileService $editProfileService;
 
-    public function __construct(AvatarService $avatarService,BioService $bioService,NameService $nameService)
+    public function __construct(EditProfileService $editProfileService)
     {
-        $this->avatarService = $avatarService;
-        $this->bioService = $bioService;
-        $this->nameService = $nameService;
+        $this->editProfileService = $editProfileService;
     }
     
     public function avatar(EditAvatarRequest $request) {
 
-        $this->avatarService->avatar($request);
+        $this->editProfileService->avatar($request);
 
         return redirect('edit_profile')->with('success_edit', 'Ваш аватар успешно обновлен.');
     }
 
     public function bio(EditBioRequest $request) {
 
-        $this->bioService->bio($request);   
+        $this->editProfileService->bio($request);   
 
         return redirect('edit_profile')->with('success_edit', 'БИО отредактированно.');
     }
 
     public function name(EditNameRequest $request) {
 
-        $this->nameService->name($request);   
+        $this->editProfileService->name($request);   
 
         return redirect('edit_profile')->with('success_edit', 'Ваше имя изменено.');
     }

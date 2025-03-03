@@ -21,4 +21,15 @@ class BanService
 
         $user->posts()->delete();
     }
+
+    public function unban_user(Request $request)
+    {
+        $userId = $request->input('user_id');
+
+        $user = User::find($userId);
+        
+        $user->status = 'active';
+        $user->avatar = 'default.png';
+        $user->save();
+    }
 }
