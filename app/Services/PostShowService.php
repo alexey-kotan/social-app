@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
-use app\Http\Controllers\SubscriptionController;
 use App\Models\User;
 use App\Services\SubscriptionService;
 

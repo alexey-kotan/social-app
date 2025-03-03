@@ -2,9 +2,7 @@
 
 namespace App\Services;
 
-use app\Http\Controllers\SubscriptionController;
 use App\Models\Subscription;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class SubscriptionService
