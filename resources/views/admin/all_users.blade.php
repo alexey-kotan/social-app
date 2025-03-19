@@ -28,7 +28,8 @@
                         <form action="{{ route('ban_user') }}" method="POST">
                             @csrf
                             <input type="hidden" name="user_id" value="{{ $user->id }}">
-                            <button class="btn btn-danger w-40 py-1" type="submit">Заблокировать и удалить посты пользователя</button>
+                            <button class="btn btn-danger w-40 py-1" type="submit">Заблокировать</button>
+                            <span class="badge bg-danger-subtle text-success-emphasis rounded-rounded">Эта кнопка заблокирует пользователя, сменит его аватар на стандартный, удалит все его посты и блок БИО.</span>
                         </form>
                     </div>
                 @else

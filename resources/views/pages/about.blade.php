@@ -1,10 +1,9 @@
 {{-- тут хранится шаблон соновного html файла --}}
 @extends('app')
 {{-- секция для указания названия страницы --}}
-@section('title') О WordPower @endsection
+@section('title') about @endsection
 {{-- секция, куда в основной шаблон html вставляется основной контент данной страницы (секцию нужно закрывать!) --}}
 @section('content')
 
     
-
 @endsection

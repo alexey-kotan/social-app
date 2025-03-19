@@ -26,7 +26,7 @@
         <input type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus  id="email" placeholder="name@example.com">
         <label for="floatingInput">Email</label>
         @error('email')
-          <span class="badge bg-success-subtle text-success-emphasis rounded-pill mt-4 mb-4">{{ $message }}</span>
+          <span class="badge bg-danger-subtle text-success-emphasis rounded-pill mt-4 mb-4">{{ $message }}</span>
         @enderror
       </div>
 

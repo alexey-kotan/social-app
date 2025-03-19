@@ -17,7 +17,7 @@
   <div class="container mx-auto">
     <div class="flex flex-wrap">
       @foreach ($subscriptions as $subscription)  
-      <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-1 flex">  <!-- Адаптивные размеры -->
+       <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-1 flex">  <!-- Адаптивные размеры -->
           <div class="bg-blue-100 rounded-full h-16 w-32 flex items-center justify-center shadow-lg"> <!-- Фиксированная высота -->
             <a href="/id_{{$subscription->id}}">
                 <img src="{{ asset('storage/' . $subscription->avatar) }}" class="rounded-full w-12 h-12 object-cover" alt=""> <!-- Фиксированные размеры аватарки -->

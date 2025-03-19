@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Sluggable\HasSlug;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -69,5 +70,10 @@ class User extends Authenticatable
     public function subscribers()
     {
         return $this->belongsToMany(User::class, 'subscriptions', 'subscribed_to_id', 'user_id');
+    }
+
+    public function updatePassword(string $password) {
+        $this->password = Hash::make($password);
+        $this->save();
     }
 }
