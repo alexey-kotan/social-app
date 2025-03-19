@@ -49,6 +49,8 @@ Route::post('/reset_pass', [ResetPassController::class, 'update'])->name('passwo
 // страница пользователя
 Route::get('/userpage', [PostShowController::class, 'showLastPosts'])->middleware('auth')->name('userpage');
 
+// Route::get('/userpage', [SubscriptionController::class, 'my_subscribers'])->middleware('auth')->name('my_subscribers');
+
 // доступ только не заблокированным пользователям
 Route::middleware(['auth', 'active.user'])->group(function () {
     // страница другого пользователя + отображение 3х последних постов

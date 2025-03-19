@@ -14,7 +14,7 @@ class SubscriptionService
                             ->first(); // первая нашедшая запись
 
         if($checkSubscription) { // если подписка есть
-            return redirect()->back()->with('success_subscribe', 'Вы уже подписаны.');
+            return true;
         }
 
         // если подписки нету, создаем новую запись в таблицу
@@ -34,6 +34,7 @@ class SubscriptionService
     public function mySubscribers()
     {
         return Subscription::where('subscribed_to_id', Auth::id())->count();
+
     }
 
     public function userSubscribers($id)

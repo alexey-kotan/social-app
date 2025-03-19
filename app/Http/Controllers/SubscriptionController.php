@@ -17,7 +17,7 @@ class SubscriptionController extends Controller
     public function subscribe($id) {
 
         $this->subscriptionService->subscribe($id);
-
+        
         return redirect()->back()->with('success_subscribe', 'Вы подписались.');
     }
 

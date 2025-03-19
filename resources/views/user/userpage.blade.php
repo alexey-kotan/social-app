@@ -32,10 +32,11 @@
     <button class="btn btn-primary w-80 py-2 mb-2 mt-2" type="submit">Новый пост</button>
   </form>
 
-  @if($posts->isEmpty())
-    <p>У вас нет постов. Создайте <a href="{{ route('newpost') }}">новый пост</a>.</p> 
+  @if(isset($posts))
+  @include('blocks.posts')
+   
   @else
-    @include('blocks.posts')
+  <p>У вас нет постов. Создайте <a href="{{ route('newpost') }}">новый пост</a>.</p> 
   @endif
 
   <form action="{{ route('my_posts') }}">

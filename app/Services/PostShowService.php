@@ -35,7 +35,7 @@ class PostShowService
 
         $subscriptionCount = $this->subscriptionService->mySubscribers();
 
-        return compact('posts', 'subscriptionCount');
+        return compact('posts', 'user', 'subscriptionCount');
     }
 
     public function showPosts()
@@ -49,7 +49,9 @@ class PostShowService
         $posts = $this->getPostsWithLikes($user->posts())
                 ->orderBy('created_at', 'desc')->get();
         
-        return compact('user', 'posts');
+                $result = compact('posts', 'user');
+
+                return $result;
 
     }
 
@@ -60,7 +62,9 @@ class PostShowService
             $query->where('user_id', Auth::id());}])
             ->orderBy('created_at', 'desc')->get();
         
-        return compact('user', 'posts');
+            $result = compact('posts', 'user');
+
+            return $result;
 
     }
 
@@ -80,7 +84,9 @@ class PostShowService
         
         $subscriptionCount = $this->subscriptionService->userSubscribers($id);
         
-        return compact('user', 'posts', 'subscriptionCount');
+        $result = compact('posts', 'subscriptionCount', 'user');
+
+        return $result;
 
     }
 
@@ -94,7 +100,9 @@ class PostShowService
         $posts = $this->getPostsWithLikes($user->posts())
             ->orderBy('created_at', 'desc')->get();
         
-        return compact('user', 'posts');
+            $result = compact('posts', 'user');
+
+            return $result;
 
     }
 
@@ -110,7 +118,9 @@ class PostShowService
              ->orderBy('created_at', 'desc')
              ->get();
  
-         return compact('subscriptions', 'posts');
+             $result = compact('posts', 'subscriptions');
+
+             return $result;
 
     }
 }
