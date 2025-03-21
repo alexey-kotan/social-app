@@ -17,7 +17,7 @@
   </svg> Пожалуйста авторизуйтесь</p>
 
   @error('authError')
-    <span class="badge bg-danger-subtle text-success-emphasis rounded-pill mt-4 mb-4">{{ $message }}</span>
+    <span class="badge bg-danger-subtle text-success-emphasis rounded-pill mt-4 mb-4 text-wrap">{{ $message }}</span>
   @enderror
 
   <form action="{{ route('home') }}" method="post" autocomplete="off">
@@ -34,7 +34,7 @@
     </div>
 
     @error('email')
-      <span class="badge bg-danger-subtle text-success-emphasis rounded-pill mt-4 mb-4">{{ $message }}</span>
+      <span class="badge bg-danger-subtle text-success-emphasis rounded-pill mt-4 mb-4 text-wrap">{{ $message }}</span>
     @enderror
 
     <div class="form-floating">
@@ -43,7 +43,7 @@
     </div>
 
     @error('password')
-      <span class="badge bg-danger-subtle text-success-emphasis rounded-pill mt-4 mb-4">{{ $message }}</span>
+      <span class="badge bg-danger-subtle text-success-emphasis rounded-pill mt-4 mb-4 text-wrap">{{ $message }}</span>
     @enderror
 
     <div class="flex mt-3 ml-4 mb-2">

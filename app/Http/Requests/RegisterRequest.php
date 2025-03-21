@@ -22,7 +22,7 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|min:2|max:20|unique:users,name|regex:/^(?! )[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*(?<! )$/',
+            'name' => 'required|string|min:2|max:20|unique:users,name|regex:/^(?! )[\wа-яА-Я]+(?: [\wа-яА-Я]+)*(?<! )$/u',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:6|max:40|confirmed',
         ];
@@ -31,7 +31,7 @@ class RegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.regex' => 'Имя может содержать только английские буквы и цифры, не может содержать более одного пробела подряд и не может начинаться или заканчиваться пробелами.',
+            'name.regex' => 'Имя может содержать только буквы и цифры, не более одного пробела подряд.',
             'name.min' => 'Имя должно содержать минимму из 2 символов',
             'name.max' => 'Имя должно содержать максимум из 20 символов',
             'name.unique' => 'Пользователь с таким именем уже существует',

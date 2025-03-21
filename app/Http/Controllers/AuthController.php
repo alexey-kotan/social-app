@@ -21,7 +21,8 @@ class AuthController extends Controller
         $result = $this->authService->auth($request->all()); // проверяем данные из AuthService
 
         if($result) { // если $result == true
-            return view('user.userpage', ['user' => auth()->user()]); // перенаправляет на страницу пользователя
+            return redirect()->route('userpage')->with(['user' => auth()->user()]);
+            // return view('user.userpage', ['user' => auth()->user()]); // перенаправляет на страницу пользователя
         } else { // если есть ошибки валидации
             return back()->withInput()->withErrors(['authError' => trans('auth.failed')] );
             // back() - возвращает пользователя на ту же страницу, withInput() - сохраняет данные введенные пользователем в поле (через сессии),

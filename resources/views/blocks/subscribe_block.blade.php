@@ -1,3 +1,4 @@
+<div class="mt-2">
 @if(Auth::user()->subscriptions->contains($user->id))
     <form action="{{ route('unsubscribe', ['id' => $user->id]) }}" method="post">
         @csrf
@@ -9,3 +10,4 @@
         <button type="submit" class="mb-2 btn btn-primary">Подписаться</button>
     </form>
 @endif
+</div>

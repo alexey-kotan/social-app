@@ -30,15 +30,26 @@ class SubscriptionController extends Controller
     }
 
     // отображение числа подписчиков у авториз.пользователя
-    public function my_subscribers() {
+    public function my_subscribers_count() {
 
-        return $this->subscriptionService->mySubscribers();
+        return $this->subscriptionService->mySubscribersCount();
     }
 
     // отображение числа подписчиков у пользователя
-    public function user_subscribers($id) {
+    public function user_subscribers_count($id) {
 
-        return $this->subscriptionService->userSubscribers($id);
+        return $this->subscriptionService->userSubscribersCount($id);
     }
     
+    public function my_subscribers() {
+
+        $subscribers = $this->subscriptionService->mySubscribers();
+        return view('user.subscribers', compact('subscribers'));
+    }
+
+    public function user_subscribers($id) {
+
+        $user_subscribers = $this->subscriptionService->userSubscribers($id);
+        return view('user.user_subscribers', compact('user_subscribers'));
+    }
 }

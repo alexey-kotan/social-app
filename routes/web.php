@@ -49,8 +49,6 @@ Route::post('/reset_pass', [ResetPassController::class, 'update'])->name('passwo
 // страница пользователя
 Route::get('/userpage', [PostShowController::class, 'showLastPosts'])->middleware('auth')->name('userpage');
 
-// Route::get('/userpage', [SubscriptionController::class, 'my_subscribers'])->middleware('auth')->name('my_subscribers');
-
 // доступ только не заблокированным пользователям
 Route::middleware(['auth', 'active.user'])->group(function () {
     // страница другого пользователя + отображение 3х последних постов
@@ -91,6 +89,12 @@ Route::middleware(['auth', 'active.user'])->group(function () {
     Route::post('/subscribe/id_{id}', [SubscriptionController::class, 'subscribe'])->name('subscribe');
     // Отменить подписку
     Route::post('/unsubscribe/id_{id}', [SubscriptionController::class, 'unsubscribe'])->name('unsubscribe');
+
+    //ПОДПИСЧИКИ
+    // страница мои подписчики
+    Route::get('/subscribers', [SubscriptionController::class, 'my_subscribers'])->name('subscribers');
+    // страница подписчики пользователя
+    Route::get('/id_{id}/subscribers', [SubscriptionController::class, 'user_subscribers'])->name('user_subscribers');
 });
 
 // доступ только администраторам

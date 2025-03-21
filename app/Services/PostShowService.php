@@ -33,7 +33,7 @@ class PostShowService
         $posts = $this->getPostsWithLikes($user->posts())
                 ->orderBy('created_at', 'desc')->take(3)->get(); // выводим 3 последних поста
 
-        $subscriptionCount = $this->subscriptionService->mySubscribers();
+        $subscriptionCount = $this->subscriptionService->mySubscribersCount();
 
         return compact('posts', 'user', 'subscriptionCount');
     }
@@ -82,7 +82,7 @@ class PostShowService
         $posts = $this->getPostsWithLikes($user->posts())
             ->orderBy('created_at', 'desc')->take(3)->get();
         
-        $subscriptionCount = $this->subscriptionService->userSubscribers($id);
+        $subscriptionCount = $this->subscriptionService->userSubscribersCount($id);
         
         $result = compact('posts', 'subscriptionCount', 'user');
 

@@ -18,7 +18,7 @@
         {{-- old() - массив, хранит в сессии данные, введенные ранее в поле; required autofocus - фокусировка на поле --}}
         <label for="floatingInput">Имя пользователя</label>
         @error('name')
-          <span class="badge bg-danger-subtle text-success-emphasis rounded-pill mt-4 mb-4">{{ $message }}</span>
+          <span class="badge bg-danger-subtle text-success-emphasis rounded-pill mt-4 mb-4 text-wrap">{{ $message }}</span>
           {{-- вывод ошибки соответствущему полю --}}
         @enderror
       </div>

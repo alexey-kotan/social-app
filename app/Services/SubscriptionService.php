@@ -31,14 +31,25 @@ class SubscriptionService
                     ->delete(); // удалить
     }
 
-    public function mySubscribers()
+    public function mySubscribersCount()
     {
         return Subscription::where('subscribed_to_id', Auth::id())->count();
+    }
+    
+    public function userSubscribersCount($id)
+    {
+        return Subscription::where('subscribed_to_id', $id)->count();
+    }
 
+    public function mySubscribers()
+    {
+        $res = Subscription::where('subscribed_to_id', Auth::id())->with('user')->get();
+        return $res;
     }
 
     public function userSubscribers($id)
     {
-        return Subscription::where('subscribed_to_id', $id)->count();
+        $res = Subscription::where('subscribed_to_id', $id)->with('user')->get();;
+        return $res;
     }
 }
