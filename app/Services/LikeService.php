@@ -27,4 +27,13 @@ class LikeService
             $post->increment('likes');  // добавлем лайк из счетчика лайков в posts
         }
     }
+
+    public function likes_post($post_id)
+    {
+        $post = Post::findOrFail($post_id);
+
+        $likes = PostLike::where('post_id', $post_id)->get();
+
+        return $likes;
+    }
 }

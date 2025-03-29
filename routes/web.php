@@ -79,8 +79,12 @@ Route::middleware(['auth', 'active.user'])->group(function () {
     Route::get('/all_posts', [PostShowController::class, 'showAllPosts'])->name('all_posts');
     // страница всех постов других пользователей
     Route::get('/id_{id}/posts', [PostShowController::class, 'showUserPosts'])->name('user_posts');
+    
+    // ЛАЙКИ
     // контроллер лайк на пост
     Route::post('/posts/{id}/like', [LikeController::class, 'post_like'])->name('post_like');
+    // лайки пользователей на посте
+    Route::get('/posts/{id}/likes', [LikeController::class, 'post_likes'])->name('post_likes');
 
     //ПОДПИСКИ
     // страница мои подписки
