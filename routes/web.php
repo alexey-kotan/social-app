@@ -49,12 +49,14 @@ Route::post('/reset_pass', [ResetPassController::class, 'update'])->name('passwo
 // страница пользователя
 Route::get('/userpage', [PostShowController::class, 'showLastPosts'])->middleware('auth')->name('userpage');
 
-// доступ только не заблокированным пользователям
+// доступ только активным (не заблокированным) пользователям
 Route::middleware(['auth', 'active.user'])->group(function () {
     // страница другого пользователя + отображение 3х последних постов
     Route::get('/id_{id}', [PostShowController::class, 'showLastUserPost'])->name('user_profile');
     // страница поиска пользователей
     Route::get('/search', [SearchController::class, 'userSearch'])->name('user_search');
+    // страница уведомлений
+    Route::get('/notifications', [SearchController::class, 'userSearch'])->name('notifications');
 
     //РЕДАКТИРОВАНИЕ ПРОФИЛЯ
     // страница редактирования профиля авториз.пользователя

@@ -6,6 +6,7 @@ use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Services\SubscriptionService;
+use function PHPUnit\Framework\returnArgument;
 
 class PostShowService
 {
@@ -75,8 +76,8 @@ class PostShowService
         if (!$user) {
             abort(404); // Если пользователь не найден, возвращаем 404
         }
-        elseif ($user == $current_user) {
-            return redirect('userpage');
+        elseif ($user->id == auth()->id()) {
+            return 'user';
         }
         // Получаем три последних поста пользователя
         $posts = $this->getPostsWithLikes($user->posts())

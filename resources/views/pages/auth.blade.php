@@ -48,7 +48,7 @@
 
     <div class="flex mt-3 ml-4 mb-2">
       <div class="w-1/2 mx-auto ">
-        <input class="form-check-input" type="checkbox" id="remember" name="remember"><label class="form-check-label" for="remember">
+        <input class="form-check-input" type="checkbox" id="remember" name="remember"><label class="form-check-label ml-2" for="remember">
           Запомнить меня </label>
       </div>
       <div class="w-1/2 mx-2 text-right" dir="ltr">

@@ -1,7 +1,7 @@
 {{-- sidebar полный экран --}}
 <div class="relative max-w-md mx-auto bg-white dark:bg-slate-800 shadow-lg h-80 overflow-hidden ring-1 ring-slate-900/5 lg:block hidden">
   <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary">
-      <form method="get" action="{{ route('home') }}">
+      <form method="get" action="{{ route('userpage') }}">
         @csrf
         <button type="submit" class="btn btn-light rounded-pill px-3k">Профиль</button>
       </form>

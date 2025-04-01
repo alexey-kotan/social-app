@@ -20,6 +20,9 @@ class PostShowController extends Controller
         
         $result = $this->postShowService->showLastPosts();
 
+        if ($result == 'user') {
+            return redirect()->route('userpage');
+        }
         return view('user.userpage', $result); // передаем данные в представление userpage
     }
 

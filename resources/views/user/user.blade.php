@@ -10,9 +10,14 @@
     <div class="w-1/2">
       <div class="dropdown flex items-center">
         <img class="rounded-circle me-1 mr-2" width="100" height="100" src="{{ asset('storage/' . $user->avatar) }}" alt=""> 
-        <span class="text-gray-700 font-medium text-2xl">{{ $user->name }} </span>
+        <span class="text-gray-700 font-medium text-2xl">{{ $user->name }}</span>
+          @if($user->role == 'admin') 
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill ml-2" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+              </svg> 
+          @endif 
       </div>
-    </div>
+  </div>
     @if($user->bio)
       <div class="w-1/2 mx-auto lg:block hidden">
         <p><b>БИО:</b> {{ $user->bio }}</p>
@@ -26,6 +31,7 @@
         </svg> {{ $subscriptionCount }} 
       </button>
     </form>
+  
       
     @include('blocks.subscribe_block')
 
@@ -47,6 +53,7 @@
       </form></br>
     @endif
   @else
+
     <p class="mb-3"><b>Страница заблокиролванна.</b></p>
 
         @include('blocks.subscribe_block')
