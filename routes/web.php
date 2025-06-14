@@ -8,11 +8,11 @@ use App\Http\Controllers\ResetPassController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostShowController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\EditProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\ChatController;
 
 
 // страница faq
@@ -27,7 +27,12 @@ Route::view('/reg', 'pages/reg')->middleware('guest')->name('reg');
 Route::post('/reg', [RegController::class, 'reg'])-> name('user-reg');
 
 // страница авторизации (главная)
-Route::view('/', 'pages/auth')->middleware('guest')->name('home');
+Route::get('/', function () {
+    if (auth()->check()) {
+        return redirect('/userpage');
+    }
+    return view('pages/auth');
+})->name('home');
 // контроллер авторизации
 Route::post('/', [AuthController::class, 'auth'])->name('user-auth');
 // Всё что передается через post на странице /auth передается в AuthController в метод auth 
@@ -51,6 +56,14 @@ Route::get('/userpage', [PostShowController::class, 'showLastPosts'])->middlewar
 
 // доступ только активным (не заблокированным) пользователям
 Route::middleware(['auth', 'active.user'])->group(function () {
+    //ЧАТ
+    // отображение чата
+    Route::get('/chat/{user}', [ChatController::class, 'index'])->name('chat');
+    // отправить сообщение
+    Route::post('/chat/{user}/send', [ChatController::class, 'sendMessage'])->name('chat.send');
+    // получить сообщение
+    Route::get('/chat/{user}/messages', [ChatController::class, 'getMessages'])->name('chat.messages');
+
     // страница другого пользователя + отображение 3х последних постов
     Route::get('/id_{id}', [PostShowController::class, 'showLastUserPost'])->name('user_profile');
     // страница поиска пользователей

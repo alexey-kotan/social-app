@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\ResetPassRequest;
 
 class ResetPassController extends Controller
 {
@@ -15,7 +15,7 @@ class ResetPassController extends Controller
         // второй аргумент передает данные(допустим о email) в $request для использования в представлении reset_pass
     }
 
-    public function update(RegisterRequest $request){
+    public function update(ResetPassRequest $request){
 
         $user = User::where('email', $request->email)->first();
         // проверяет есть ли в БД переданный email и при первом нахождении(first) передает его в объект $user

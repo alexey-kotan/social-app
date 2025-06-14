@@ -5,6 +5,8 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Broadcast;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -36,5 +38,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('banned', function () {
             return Auth::user()->status == 'ban';
         });
+
+        Broadcast::routes();
     }
 }

@@ -37,7 +37,9 @@
 
     @if(session('success_subscribe'))
       <span class="badge bg-success-subtle text-success-emphasis rounded-pill mt-4 mb-4">{{ session('success_subscribe') }}</span>
-    @endif <br>
+    @endif
+
+    <a href="{{ route('chat', $user->id) }}" class="text-indigo-600 hover:text-indigo-800">Send message</a>
 
     <span class="text-gray-700 font-medium text-xl">Посты пользователя <i>{{ $user->name }}</i></span><br>
 
